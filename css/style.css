@@ -1,186 +1,157 @@
-/* style.css */
-
-/* Estilos gerais */
-body {
-  font-family: Arial, sans-serif;
+/* Reset básico */
+* {
   margin: 0;
   padding: 0;
-  background-color: #f5f5f5;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f0f2f5;
+  color: #333;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
 }
 
 .header {
-  background-color: #000;
-  color: white;
-  padding: 10px 0;
+  margin-bottom: 20px;
   text-align: center;
 }
 
+.header h1 {
+  font-size: 2rem;
+  color: #000000;
+}
+
 .container {
-  width: 90%;
-  margin: 20px auto;
-  background-color: white;
-  padding: 20px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 600px;
+  background-color: #fff;
   border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  overflow-x: auto; /* Adicionei isso para garantir que a tabela não ultrapasse a largura do contêiner */
 }
 
 .input-section {
   margin-bottom: 20px;
   display: flex;
   flex-direction: column;
+  align-items: stretch;
 }
 
-#itens-colados {
+textarea {
   width: 100%;
   height: 100px;
   padding: 10px;
-  border: 1px solid #ccc;
   border-radius: 5px;
+  border: 1px solid #ddd;
   margin-bottom: 10px;
+  resize: none;
+  font-family: 'Arial', sans-serif;
 }
 
-.input-section button {
-  padding: 10px;
-  background-color: #4CAF50;
+button {
+  padding: 10px 20px;
+  background-color: #007BFF;
   color: white;
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
 }
 
-.input-section button:hover {
-  background-color: #45a049;
+button i {
+  margin-right: 5px;
 }
 
-/* Estilo da tabela */
+button:hover {
+  background-color: #0056b3;
+}
+
 table {
   width: 100%;
   border-collapse: collapse;
   margin-bottom: 20px;
+  table-layout: fixed; /* Adicionei isso para definir um layout de tabela fixo */
 }
 
-table thead th {
-  background-color: #f2f2f2;
+th, td {
   padding: 10px;
   text-align: left;
+  border: 1px solid #ddd;
+  font-size: 0.9rem;
+  word-wrap: break-word; /* Adicionei isso para garantir que o texto seja quebrado */
 }
 
-table tbody tr:nth-child(even) {
-  background-color: #f9f9f9;
+th {
+  background-color: #007BFF;
+  color: white;
 }
 
-table tbody td {
-  padding: 10px;
-  border-bottom: 1px solid #ddd;
+th:nth-child(1),
+td:nth-child(1) {
+  width: 50px; /* Largura fixa para a coluna de checkbox */
 }
 
-table input[type="number"] {
-  width: 60px;
+th:nth-child(2),
+td:nth-child(2) {
+  width: 150px; /* Largura fixa para a coluna de item */
+}
+
+th:nth-child(3),
+td:nth-child(3) {
+  width: 60px; /* Ajustei a largura para a coluna de quantidade */
+}
+
+th:nth-child(4),
+td:nth-child(4) {
+  width: 80px; /* Ajustei a largura para a coluna de valor */
+}
+
+th:nth-child(5),
+td:nth-child(5) {
+  width: 100px; /* Ajustei a largura para a coluna de botão de remover */
+}
+
+td input[type="number"] {
+  width: 100%; /* Ajuste de largura para os inputs de número */
   padding: 5px;
-  margin: 0 5px;
+  box-sizing: border-box;
 }
 
-table input[type="checkbox"] {
-  transform: scale(1.2);
-  margin-right: 10px;
-}
-
-.btn-remover {
-  background-color: #ff4d4d;
-  color: white;
-  border: none;
+td button {
   padding: 5px 10px;
-  cursor: pointer;
-  border-radius: 5px;
-}
-
-.btn-remover:hover {
-  background-color: #ff3333;
-}
-
-#btn-remover-todos {
-  display: block;
-  width: 100%;
-  padding: 10px 0;
-  background-color: #ff4d4d;
+  background-color: #dc3545;
   color: white;
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  margin-top: 20px;
-  text-align: center;
+  font-size: 0.9rem;
 }
 
-#btn-remover-todos:hover {
-  background-color: #ff3333;
+td button:hover {
+  background-color: #c82333;
 }
 
-/* Estilos dos totais */
 .totals {
   display: flex;
   justify-content: space-between;
-  padding: 10px 0;
-  border-top: 1px solid #ddd;
-  font-size: 1.2em;
-  background-color: white;
-  position: sticky;
-  bottom: 0;
-  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+  font-size: 1.1rem;
 }
 
-/* Estilos do rodapé */
 .footer {
-  background-color: #000;
-  color: white;
   text-align: center;
-  padding: 10px 0;
   margin-top: 20px;
 }
 
-/* Estilos responsivos */
-@media (max-width: 768px) {
-  .container {
-    width: 100%;
-    padding: 10px;
-  }
-
-  table thead, table tbody, table th, table td {
-    display: block;
-  }
-
-  table thead {
-    float: left;
-  }
-
-  table tbody {
-    width: auto;
-    overflow-x: auto;
-  }
-
-  table tbody tr {
-    display: flex;
-    flex-direction: column;
-    border-bottom: 1px solid #ddd;
-  }
-
-  table tbody td {
-    text-align: right;
-  }
-
-  table tbody td::before {
-    content: attr(data-label);
-    float: left;
-    font-weight: bold;
-  }
-
-  .input-section {
-    flex-direction: column;
-  }
-
-  #itens-colados {
-    margin-bottom: 10px;
-  }
-
+@media (max-width: 600px) {
   .totals {
     flex-direction: column;
     align-items: flex-start;
@@ -189,22 +160,17 @@ table input[type="checkbox"] {
   .totals div {
     margin-bottom: 10px;
   }
-}
 
-@media (max-width: 480px) {
-  .header, .footer {
-    padding: 5px 0;
+  button {
+    width: 100%;
   }
 
-  .input-section button {
-    padding: 8px;
+  th, td {
+    padding: 5px;
   }
 
-  .btn-remover, #btn-remover-todos {
-    padding: 8px 0;
-  }
-
-  .totals {
-    font-size: 1em;
+  th:nth-child(2),
+  td:nth-child(2) {
+    width: auto; /* Ajusta a largura automaticamente em telas menores */
   }
 }

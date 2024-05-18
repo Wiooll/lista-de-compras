@@ -48,7 +48,7 @@ function adicionarItensColados() {
         adicionarProduto(nomeProduto);
       }
     });
-    atualizarPrecoTotal(); // Atualiza o preço total após adicionar os itens colados
+    atualizarPrecoTotal();
     document.getElementById('itens-colados').value = '';
   }
 }
@@ -66,10 +66,7 @@ function atualizarPrecoTotal() {
     }
   });
 
-  const precoTotalElem = document.getElementById('preco-total');
-  precoTotalElem.textContent = precoTotal.toFixed(2);
-
-  // Atualizar o preço dos itens selecionados
+  document.getElementById('preco-total').textContent = precoTotal.toFixed(2);
   atualizarPrecoSelecionado();
 }
 
@@ -88,8 +85,7 @@ function atualizarPrecoSelecionado() {
     }
   });
 
-  const precoSelecionadoElem = document.getElementById('preco-selecionado');
-  precoSelecionadoElem.textContent = precoSelecionado.toFixed(2);
+  document.getElementById('preco-selecionado').textContent = precoSelecionado.toFixed(2);
 }
 
 // Função para remover um produto da lista

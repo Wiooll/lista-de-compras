@@ -16,7 +16,7 @@ body {
 }
 
 .container {
-  width: 80%;
+  width: 90%;
   margin: 20px auto;
   background-color: white;
   padding: 20px;
@@ -140,11 +140,11 @@ table input[type="checkbox"] {
 /* Estilos responsivos */
 @media (max-width: 768px) {
   .container {
-    width: 90%;
+    width: 100%;
     padding: 10px;
   }
 
-  table thead, table tbody {
+  table thead, table tbody, table th, table td {
     display: block;
   }
 
@@ -155,19 +155,21 @@ table input[type="checkbox"] {
   table tbody {
     width: auto;
     overflow-x: auto;
-    white-space: nowrap;
+  }
+
+  table tbody tr {
+    display: flex;
+    flex-direction: column;
+    border-bottom: 1px solid #ddd;
   }
 
   table tbody td {
-    display: block;
     text-align: right;
-    border-bottom: 1px solid #ddd;
   }
 
   table tbody td::before {
     content: attr(data-label);
     float: left;
-    text-transform: uppercase;
     font-weight: bold;
   }
 
@@ -176,7 +178,6 @@ table input[type="checkbox"] {
   }
 
   #itens-colados {
-    margin-right: 0;
     margin-bottom: 10px;
   }
 

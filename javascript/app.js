@@ -1,5 +1,5 @@
 // Função para adicionar produto à lista de compras
-function adicionarProduto(nomeProduto, quantidade = 1, preco = 0) {
+function adicionarProduto(nomeProduto, quantidade = 1, preco = 0, selecionado = false) {
   const listaProdutos = document.getElementById('produtos').getElementsByTagName('tbody')[0];
   const novaLinha = listaProdutos.insertRow();
 
@@ -12,7 +12,11 @@ function adicionarProduto(nomeProduto, quantidade = 1, preco = 0) {
   const checkbox = document.createElement('input');
   checkbox.type = 'checkbox';
   checkbox.classList.add('checkbox');
-  checkbox.addEventListener('change', atualizarPrecoSelecionado);
+  checkbox.checked = selecionado;
+  checkbox.addEventListener('change', () => {
+    atualizarPrecoSelecionado();
+    salvarLista();
+  });
   celulaCheckbox.appendChild(checkbox);
 
   celulaNome.textContent = nomeProduto;
@@ -21,14 +25,20 @@ function adicionarProduto(nomeProduto, quantidade = 1, preco = 0) {
   inputQuantidade.type = 'number';
   inputQuantidade.placeholder = 'Qtd';
   inputQuantidade.value = quantidade;
-  inputQuantidade.addEventListener('change', atualizarPrecoTotal);
+  inputQuantidade.addEventListener('change', () => {
+    atualizarPrecoTotal();
+    salvarLista();
+  });
   celulaQuantidade.appendChild(inputQuantidade);
 
   const inputPreco = document.createElement('input');
   inputPreco.type = 'number';
   inputPreco.placeholder = 'Preço';
   inputPreco.value = preco;
-  inputPreco.addEventListener('change', atualizarPrecoTotal);
+  inputPreco.addEventListener('change', () => {
+    atualizarPrecoTotal();
+    salvarLista();
+  });
   celulaPreco.appendChild(inputPreco);
 
   const btnRemover = document.createElement('button');
@@ -135,7 +145,8 @@ function salvarLista() {
     const produto = {
       nome: linha.cells[1].textContent,
       quantidade: linha.cells[2].querySelector('input').value,
-      preco: linha.cells[3].querySelector('input').value
+      preco: linha.cells[3].querySelector('input').value,
+      selecionado: linha.cells[0].querySelector('input[type="checkbox"]').checked
     };
     produtos.push(produto);
   });
@@ -147,7 +158,7 @@ function salvarLista() {
 function carregarLista() {
   const produtos = JSON.parse(localStorage.getItem('listaProdutos')) || [];
   produtos.forEach(produto => {
-    adicionarProduto(produto.nome, produto.quantidade, produto.preco);
+    adicionarProduto(produto.nome, produto.quantidade, produto.preco, produto.selecionado);
   });
 }
 

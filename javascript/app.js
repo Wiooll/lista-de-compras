@@ -1,5 +1,5 @@
 // Função para adicionar produto à lista de compras
-function adicionarProduto(nomeProduto) {
+function adicionarProduto(nomeProduto, quantidade = 1, preco = 0) {
   const listaProdutos = document.getElementById('produtos').getElementsByTagName('tbody')[0];
   const novaLinha = listaProdutos.insertRow();
 
@@ -20,21 +20,27 @@ function adicionarProduto(nomeProduto) {
   const inputQuantidade = document.createElement('input');
   inputQuantidade.type = 'number';
   inputQuantidade.placeholder = 'Qtd';
-  inputQuantidade.value = 1;
+  inputQuantidade.value = quantidade;
   inputQuantidade.addEventListener('change', atualizarPrecoTotal);
   celulaQuantidade.appendChild(inputQuantidade);
 
   const inputPreco = document.createElement('input');
   inputPreco.type = 'number';
   inputPreco.placeholder = 'Preço';
+  inputPreco.value = preco;
   inputPreco.addEventListener('change', atualizarPrecoTotal);
   celulaPreco.appendChild(inputPreco);
 
   const btnRemover = document.createElement('button');
   btnRemover.textContent = 'Remover';
   btnRemover.classList.add('btn-remover');
-  btnRemover.addEventListener('click', () => removerProduto(novaLinha));
+  btnRemover.addEventListener('click', () => {
+    removerProduto(novaLinha);
+    salvarLista();
+  });
   celulaRemover.appendChild(btnRemover);
+
+  salvarLista();
 }
 
 // Função para adicionar itens colados na lista de compras
@@ -68,6 +74,7 @@ function atualizarPrecoTotal() {
 
   document.getElementById('preco-total').textContent = precoTotal.toFixed(2);
   atualizarPrecoSelecionado();
+  salvarLista();
 }
 
 // Função para atualizar o preço dos itens selecionados
@@ -116,4 +123,33 @@ function removerTodosProdutos() {
   }
   document.getElementById('preco-total').textContent = '0.00';
   document.getElementById('preco-selecionado').textContent = '0.00';
+  salvarLista();
 }
+
+// Função para salvar a lista de produtos no Local Storage
+function salvarLista() {
+  const linhas = document.querySelectorAll('#produtos tbody tr');
+  const produtos = [];
+
+  linhas.forEach(linha => {
+    const produto = {
+      nome: linha.cells[1].textContent,
+      quantidade: linha.cells[2].querySelector('input').value,
+      preco: linha.cells[3].querySelector('input').value
+    };
+    produtos.push(produto);
+  });
+
+  localStorage.setItem('listaProdutos', JSON.stringify(produtos));
+}
+
+// Função para carregar a lista de produtos do Local Storage
+function carregarLista() {
+  const produtos = JSON.parse(localStorage.getItem('listaProdutos')) || [];
+  produtos.forEach(produto => {
+    adicionarProduto(produto.nome, produto.quantidade, produto.preco);
+  });
+}
+
+// Carregar a lista de produtos ao carregar a página
+window.addEventListener('load', carregarLista);

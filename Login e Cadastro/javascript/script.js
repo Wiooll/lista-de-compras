@@ -10,7 +10,7 @@ document.getElementById('login-form').addEventListener('submit', function(event)
   // Suponha que a autenticação seja bem-sucedida
   // Redireciona para a página principal
   if (username === 'Wiooll' && password === '1234') { // Exemplo de validação
-    window.location.href = 'file:///C:/Users/willian.sousa/Documents/Wil/SITES%20EM%20DESENVOLVIMENTO/SITE%20LISTA%20DE%20COMPRAS/VERS%C3%83O%209%20-%20back4app/home.html'; // Substitua pelo caminho da sua página principal
+    window.location.href = 'https://github.com/Wiooll/lista-de-compras/blob/main/home.html'; // Substitua pelo caminho da sua página principal
   } else {
     alert('Nome de usuário ou senha incorretos');
   }

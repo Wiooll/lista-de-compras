@@ -42,67 +42,21 @@ function adicionarProduto(nomeProduto, quantidade = 1, preco = 0, selecionado = 
   celulaPreco.appendChild(inputPreco);
 
   const btnRemover = document.createElement('button');
-  btnRemover.textContent = 'Remover';
+  const iconRemover = document.createElement('img');
+  iconRemover.src = 'img/lixeira.png'; // Certifique-se de que a imagem da lixeira está na pasta 'images'
+  iconRemover.alt = 'Remover';
+  iconRemover.classList.add('remove-icon');
+  btnRemover.appendChild(iconRemover);
   btnRemover.classList.add('btn-remover');
   btnRemover.addEventListener('click', () => {
     removerProduto(novaLinha);
     salvarLista();
+    atualizarVisibilidadeRemoverTodos(); // Atualiza a visibilidade do botão ao remover produto
   });
   celulaRemover.appendChild(btnRemover);
 
-  salvarLista();
-}
-
-// Função para adicionar itens colados na lista de compras
-function adicionarItensColados() {
-  const itensColados = document.getElementById('itens-colados').value.trim();
-  if (itensColados) {
-    const itens = itensColados.split('\n');
-    itens.forEach(item => {
-      const nomeProduto = item.trim();
-      if (nomeProduto) {
-        adicionarProduto(nomeProduto);
-      }
-    });
-    atualizarPrecoTotal();
-    document.getElementById('itens-colados').value = '';
-  }
-}
-
-// Função para atualizar o preço total
-function atualizarPrecoTotal() {
-  const linhas = document.querySelectorAll('#produtos tbody tr');
-  let precoTotal = 0;
-
-  linhas.forEach(linha => {
-    const quantidade = parseFloat(linha.cells[2].querySelector('input').value);
-    const preco = parseFloat(linha.cells[3].querySelector('input').value);
-    if (!isNaN(quantidade) && !isNaN(preco)) {
-      precoTotal += quantidade * preco;
-    }
-  });
-
-  document.getElementById('preco-total').textContent = precoTotal.toFixed(2);
-  atualizarPrecoSelecionado();
-  salvarLista();
-}
-
-// Função para atualizar o preço dos itens selecionados
-function atualizarPrecoSelecionado() {
-  const checkboxes = document.querySelectorAll('#produtos tbody input[type="checkbox"]');
-  let precoSelecionado = 0;
-
-  checkboxes.forEach(checkbox => {
-    if (checkbox.checked) {
-      const quantidade = parseFloat(checkbox.parentElement.nextElementSibling.nextElementSibling.querySelector('input').value);
-      const preco = parseFloat(checkbox.parentElement.nextElementSibling.nextElementSibling.nextElementSibling.querySelector('input').value);
-      if (!isNaN(quantidade) && !isNaN(preco)) {
-        precoSelecionado += quantidade * preco;
-      }
-    }
-  });
-
-  document.getElementById('preco-selecionado').textContent = precoSelecionado.toFixed(2);
+  atualizarVisibilidadeRemoverTodos(); // Atualiza a visibilidade do botão ao adicionar produto
+  salvarLista(); // Salva a lista de produtos
 }
 
 // Função para remover um produto da lista
@@ -123,17 +77,58 @@ function removerProduto(linha) {
     }
   }
   linha.remove();
+  salvarLista(); // Salva a lista de produtos após remover
 }
 
 // Função para remover todos os produtos da lista
 function removerTodosProdutos() {
   const tabelaBody = document.querySelector('#produtos tbody');
-  while (tabelaBody.firstChild) {
-    tabelaBody.removeChild(tabelaBody.firstChild);
-  }
+  tabelaBody.innerHTML = ''; // Limpa o conteúdo da tabela
   document.getElementById('preco-total').textContent = '0.00';
   document.getElementById('preco-selecionado').textContent = '0.00';
-  salvarLista();
+  salvarLista(); // Salva a lista vazia
+}
+
+// Função para atualizar a visibilidade do botão "Remover Todos"
+function atualizarVisibilidadeRemoverTodos() {
+  const btnRemoverTodos = document.getElementById('btn-remover-todos');
+  const linhas = document.querySelectorAll('#produtos tbody tr');
+  btnRemoverTodos.style.display = linhas.length > 0 ? 'block' : 'none';
+}
+
+// Função para atualizar o preço total
+function atualizarPrecoTotal() {
+  const linhas = document.querySelectorAll('#produtos tbody tr');
+  let precoTotal = 0;
+
+  linhas.forEach(linha => {
+    const quantidade = parseFloat(linha.cells[2].querySelector('input').value);
+    const preco = parseFloat(linha.cells[3].querySelector('input').value);
+    if (!isNaN(quantidade) && !isNaN(preco)) {
+      precoTotal += quantidade * preco;
+    }
+  });
+
+  document.getElementById('preco-total').textContent = precoTotal.toFixed(2);
+  atualizarPrecoSelecionado();
+}
+
+// Função para atualizar o preço dos itens selecionados
+function atualizarPrecoSelecionado() {
+  const checkboxes = document.querySelectorAll('#produtos tbody input[type="checkbox"]');
+  let precoSelecionado = 0;
+
+  checkboxes.forEach(checkbox => {
+    if (checkbox.checked) {
+      const quantidade = parseFloat(checkbox.parentElement.nextElementSibling.nextElementSibling.querySelector('input').value);
+      const preco = parseFloat(checkbox.parentElement.nextElementSibling.nextElementSibling.nextElementSibling.querySelector('input').value);
+      if (!isNaN(quantidade) && !isNaN(preco)) {
+        precoSelecionado += quantidade * preco;
+      }
+    }
+  });
+
+  document.getElementById('preco-selecionado').textContent = precoSelecionado.toFixed(2);
 }
 
 // Função para salvar a lista de produtos no Local Storage
@@ -160,7 +155,27 @@ function carregarLista() {
   produtos.forEach(produto => {
     adicionarProduto(produto.nome, produto.quantidade, produto.preco, produto.selecionado);
   });
+  atualizarVisibilidadeRemoverTodos(); // Atualiza a visibilidade do botão ao carregar a página
 }
 
 // Carregar a lista de produtos ao carregar a página
 window.addEventListener('load', carregarLista);
+
+// Adicionar itens colados à lista de compras
+function adicionarItensColados() {
+  const itensColados = document.getElementById('itens-colados').value.trim();
+  if (itensColados) {
+    const itens = itensColados.split('\n');
+    itens.forEach(item => {
+      const nomeProduto = item.trim();
+      if (nomeProduto) {
+        adicionarProduto(nomeProduto);
+      }
+    });
+    atualizarPrecoTotal();
+    document.getElementById('itens-colados').value = '';
+  }
+}
+
+// Adicionar evento ao botão de adicionar itens colados
+document.getElementById('btn-adicionar-colados').addEventListener('click', adicionarItensColados);

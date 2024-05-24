@@ -183,3 +183,23 @@ td button:hover {
     width: auto; /* Ajusta a largura automaticamente em telas menores */
   }
 }
+
+.remove-icon {
+    width: 20px; /* Ajuste o tamanho conforme necessário */
+    height: 20px;
+}
+
+.btn-remover {
+    background: none; /* Remove o fundo do botão */
+    border: none;     /* Remove a borda do botão */
+    cursor: pointer;  /* Cursor de ponteiro ao passar sobre o botão */
+}
+
+.btn-remover img {
+    width: 20px;
+    height: 20px;
+}
+
+#btn-remover-todos {
+  display: none; /* Oculta o botão inicialmente */
+}

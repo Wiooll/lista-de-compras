@@ -51,11 +51,11 @@ function adicionarProduto(nomeProduto, quantidade = 1, preco = 0, selecionado = 
   btnRemover.addEventListener('click', () => {
     removerProduto(novaLinha);
     salvarLista();
-    atualizarVisibilidadeRemoverTodos(); // Atualiza a visibilidade do botão ao remover produto
+    atualizarVisibilidadeElementos(); // Atualiza a visibilidade dos elementos ao remover produto
   });
   celulaRemover.appendChild(btnRemover);
 
-  atualizarVisibilidadeRemoverTodos(); // Atualiza a visibilidade do botão ao adicionar produto
+  atualizarVisibilidadeElementos(); // Atualiza a visibilidade dos elementos ao adicionar produto
   salvarLista(); // Salva a lista de produtos
 }
 
@@ -78,6 +78,7 @@ function removerProduto(linha) {
   }
   linha.remove();
   salvarLista(); // Salva a lista de produtos após remover
+  atualizarVisibilidadeElementos(); // Atualiza a visibilidade dos elementos ao remover produto
 }
 
 // Função para remover todos os produtos da lista
@@ -87,13 +88,24 @@ function removerTodosProdutos() {
   document.getElementById('preco-total').textContent = '0.00';
   document.getElementById('preco-selecionado').textContent = '0.00';
   salvarLista(); // Salva a lista vazia
+  atualizarVisibilidadeElementos(); // Atualiza a visibilidade dos elementos ao remover todos os produtos
 }
 
-// Função para atualizar a visibilidade do botão "Remover Todos"
-function atualizarVisibilidadeRemoverTodos() {
+// Função para atualizar a visibilidade da tabela, dos totais e do botão "Remover Tudo"
+function atualizarVisibilidadeElementos() {
+  const tabela = document.getElementById('produtos');
+  const totals = document.querySelector('.totals');
   const btnRemoverTodos = document.getElementById('btn-remover-todos');
   const linhas = document.querySelectorAll('#produtos tbody tr');
-  btnRemoverTodos.style.display = linhas.length > 0 ? 'block' : 'none';
+
+  const temProdutos = linhas.length > 0;
+  
+  tabela.classList.toggle('hidden', !temProdutos);
+  totals.classList.toggle('hidden', !temProdutos);
+  btnRemoverTodos.classList.toggle('hidden', !temProdutos);
+
+  // Atualizar a visibilidade dos totais especificamente
+  document.querySelector('.totals').style.display = temProdutos ? 'block' : 'none';
 }
 
 // Função para atualizar o preço total
@@ -155,7 +167,7 @@ function carregarLista() {
   produtos.forEach(produto => {
     adicionarProduto(produto.nome, produto.quantidade, produto.preco, produto.selecionado);
   });
-  atualizarVisibilidadeRemoverTodos(); // Atualiza a visibilidade do botão ao carregar a página
+  atualizarVisibilidadeElementos(); // Atualiza a visibilidade dos elementos ao carregar a página
 }
 
 // Carregar a lista de produtos ao carregar a página

@@ -36,6 +36,10 @@ body {
   border-top: 3px solid black; /* Adicione esta linha para definir a cor da barra acima da tabela para preto */
 }
 
+.hidden {
+  display: none;
+}
+
 .input-section {
   margin-bottom: 20px;
   display: flex;
@@ -202,4 +206,5 @@ td button:hover {
 
 #btn-remover-todos {
   display: none; /* Oculta o botão inicialmente */
+
 }

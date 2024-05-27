@@ -1,5 +1,10 @@
 // Função para adicionar produto à lista de compras
 function adicionarProduto(nomeProduto, quantidade = 1, preco = 0, selecionado = false) {
+  if (quantidade < 0 || preco < 0) {
+    alert('Quantidade e preço devem ser valores positivos.');
+    return;
+  }
+
   const listaProdutos = document.getElementById('produtos').getElementsByTagName('tbody')[0];
   const novaLinha = listaProdutos.insertRow();
 
@@ -25,7 +30,9 @@ function adicionarProduto(nomeProduto, quantidade = 1, preco = 0, selecionado = 
   inputQuantidade.type = 'number';
   inputQuantidade.placeholder = 'Qtd';
   inputQuantidade.value = quantidade;
+  inputQuantidade.min = 0;  // Impede valores negativos
   inputQuantidade.addEventListener('change', () => {
+    if (inputQuantidade.value < 0) inputQuantidade.value = 0;
     atualizarPrecoTotal();
     salvarLista();
   });
@@ -35,7 +42,9 @@ function adicionarProduto(nomeProduto, quantidade = 1, preco = 0, selecionado = 
   inputPreco.type = 'number';
   inputPreco.placeholder = 'Preço';
   inputPreco.value = preco;
+  inputPreco.min = 0;  // Impede valores negativos
   inputPreco.addEventListener('change', () => {
+    if (inputPreco.value < 0) inputPreco.value = 0;
     atualizarPrecoTotal();
     salvarLista();
   });
@@ -173,7 +182,6 @@ function carregarLista() {
 // Carregar a lista de produtos ao carregar a página
 window.addEventListener('load', carregarLista);
 
-// Adicionar itens colados à lista de compras
 function adicionarItensColados() {
   const itensColados = document.getElementById('itens-colados').value.trim();
   if (itensColados) {
@@ -181,13 +189,16 @@ function adicionarItensColados() {
     itens.forEach(item => {
       const nomeProduto = item.trim();
       if (nomeProduto) {
-        adicionarProduto(nomeProduto);
+        adicionarProduto(nomeProduto, 1, 0, false); // Define quantidade e preço como 1 e 0 por padrão
       }
     });
     atualizarPrecoTotal();
     document.getElementById('itens-colados').value = '';
   }
 }
+
+document.getElementById('btn-adicionar-colados').addEventListener('click', adicionarItensColados);
+
 
 // Adicionar evento ao botão de adicionar itens colados
 document.getElementById('btn-adicionar-colados').addEventListener('click', adicionarItensColados);

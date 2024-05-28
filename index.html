@@ -4,42 +4,46 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>LISTA DE COMPRAS</title>
-  <link rel="stylesheet" href="C:\Users\willian.sousa\Documents\Wil\SITES EM DESENVOLVIMENTO\SITE LISTA DE COMPRAS\VERSÃO 9 - back4app\Login e Cadastro\css\styles.css">
+  <link rel="icon" href="img/carrinho.png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
 </head>
+<br><br>
 <body>
+  <header class="header">
+    <h1><i class="fas fa-shopping-cart"></i> Lista de Compras</h1>
+  </header>
+
   <div class="container">
-    <h1>LISTA DE COMPRAS</h1>
-    <div id="auth">
-      <form id="register-form" style="display:none;">
-        <div class="input-group">
-          <label for="register-username">Nome de usuário</label>
-          <input type="text" id="register-username" placeholder="Nome de usuário" required>
-        </div>
-        <div class="input-group">
-          <label for="register-password">Senha</label>
-          <input type="password" id="register-password" placeholder="Senha" required>
-        </div>
-        <div class="input-group">
-          <label for="confirm-password">Confirme a senha</label>
-          <input type="password" id="confirm-password" placeholder="Confirme a senha" required>
-        </div>
-        <button type="submit">Registrar</button>
-        <p>Já tem uma conta? <a href="#" onclick="showLoginForm()">Faça login</a></p>
-      </form>
-      <form id="login-form">
-        <div class="input-group">
-          <label for="username">Nome de usuário</label>
-          <input type="text" id="username" placeholder="Nome de usuário" required>
-        </div>
-        <div class="input-group">
-          <label for="senha">Senha</label>
-          <input type="password" id="senha" placeholder="Senha" required>
-        </div>
-        <button type="submit" id="login-button">Entrar</button>
-        <p>Não tem uma conta? <a href="#" onclick="showRegisterForm()">Registre-se</a></p>
-      </form>
+    <div class="input-section">
+      <textarea id="itens-colados" placeholder="Adicione ou cole aqui os itens da sua lista de compras (um por linha)"></textarea>
+      <button id="btn-adicionar-colados"><i class="fas fa-plus"></i> Adicionar Itens</button>
     </div>
+    <table id="produtos" class="hidden">
+      <thead>
+        <tr>
+          <th>✓</th>
+          <th>ITEM</th>
+          <th>QTD</th>
+          <th>VALOR</th>
+          <th>REMOVER</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Produtos serão adicionados aqui -->
+      </tbody>
+    </table>
+    <div class="totals hidden">
+      <div>Total: R$ <span id="preco-total">0.00</span></div>
+      <div>Selecionados: R$ <span id="preco-selecionado">0.00</span></div>
+    </div>
+    <button id="btn-remover-todos" class="hidden" onclick="removerTodosProdutos()"><i class="fas fa-trash-alt"></i> Remover Tudo</button>
   </div>
-  <script src="C:\Users\willian.sousa\Documents\Wil\SITES EM DESENVOLVIMENTO\SITE LISTA DE COMPRAS\VERSÃO 9 - back4app\Login e Cadastro\javascript\script.js"></script>
+
+  <footer class="footer">
+    <p>&copy; 2024 Willian Sousa. Todos os direitos reservados.</p>
+  </footer>
+
+  <script src="javascript/app.js"></script>
 </body>
 </html>

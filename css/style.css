@@ -13,9 +13,6 @@ body {
   flex-direction: column;
   align-items: center;
   padding: 20px;
-  justify-content: center;
-  height: 100vh;
-  margin: 0;
 }
 
 .header {
@@ -35,8 +32,12 @@ body {
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   padding: 20px;
-  overflow-x: auto; /* Garante que a tabela não ultrapasse a largura do contêiner */
-  border-top: 3px solid black; /* Cor da barra acima da tabela ajustada para preto */
+  overflow-x: auto; /* Adicionei isso para garantir que a tabela não ultrapasse a largura do contêiner */
+  border-top: 3px solid black; /* Adicione esta linha para definir a cor da barra acima da tabela para preto */
+}
+
+.hidden {
+  display: none;
 }
 
 .input-section {
@@ -59,7 +60,7 @@ textarea {
 
 button {
   padding: 10px 20px;
-  background-color: #000; /* Cor do botão ajustada para preto */
+  background-color: #000; /* Cor do botão de adicionar item ajustada para preto */
   color: white;
   border: none;
   border-radius: 5px;
@@ -82,7 +83,7 @@ table {
   width: 100%;
   border-collapse: collapse;
   margin-bottom: 20px;
-  table-layout: fixed; /* Define um layout de tabela fixo */
+  table-layout: fixed; /* Adicionei isso para definir um layout de tabela fixo */
 }
 
 th, td {
@@ -90,7 +91,7 @@ th, td {
   text-align: left;
   border: 1px solid #ddd;
   font-size: 0.9rem;
-  word-wrap: break-word; /* Garante que o texto seja quebrado */
+  word-wrap: break-word; /* Adicionei isso para garantir que o texto seja quebrado */
 }
 
 th {
@@ -110,17 +111,17 @@ td:nth-child(2) {
 
 th:nth-child(3),
 td:nth-child(3) {
-  width: 60px; /* Ajuste de largura para a coluna de quantidade */
+  width: 60px; /* Ajustei a largura para a coluna de quantidade */
 }
 
 th:nth-child(4),
 td:nth-child(4) {
-  width: 80px; /* Ajuste de largura para a coluna de valor */
+  width: 80px; /* Ajustei a largura para a coluna de valor */
 }
 
 th:nth-child(5),
 td:nth-child(5) {
-  width: 100px; /* Ajuste de largura para a coluna de botão de remover */
+  width: 100px; /* Ajustei a largura para a coluna de botão de remover */
 }
 
 td input[type="number"] {
@@ -129,8 +130,7 @@ td input[type="number"] {
   box-sizing: border-box;
 }
 
-/* Estilos para o botão de remover com imagem */
-.remove-button {
+td button {
   padding: 5px 10px;
   background-color: #dc3545; /* Cor dos botões de remover ajustada para vermelho */
   color: white;
@@ -138,17 +138,9 @@ td input[type="number"] {
   border-radius: 5px;
   cursor: pointer;
   font-size: 0.9rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-image: url('caminho/para/sua-imagem.png');
-  background-repeat: no-repeat;
-  background-position: center left;
-  background-size: 16px 16px;
-  padding-left: 25px; /* Ajuste o padding para dar espaço para a imagem */
 }
 
-.remove-button:hover {
+td button:hover {
   background-color: #c82333; /* Cor dos botões de remover ao passar o mouse ajustada para um vermelho mais escuro */
 }
 
@@ -170,91 +162,6 @@ td input[type="number"] {
 .footer {
   text-align: center;
   margin-top: 20px;
-}
-
-/* Estilos específicos para páginas de login e cadastro */
-.login-container {
-  background-color: #fff;
-  padding: 40px;
-  border-radius: 10px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  width: 100%;
-  max-width: 400px;
-}
-
-.login-container h1 {
-  margin-bottom: 20px;
-  font-size: 24px;
-}
-
-.login-container .input-group {
-  margin-bottom: 15px;
-}
-
-.login-container input {
-  width: 100%;
-  padding: 10px;
-  margin-top: 5px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  box-sizing: border-box;
-}
-
-.login-container button {
-  width: 100%;
-  padding: 10px;
-  background-color: #333;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 16px;
-}
-
-.login-container button:hover {
-  background-color: #555;
-}
-
-.login-container p {
-  margin-top: 15px;
-  text-align: center;
-}
-
-.login-container a {
-  color: #333;
-  text-decoration: none;
-}
-
-.login-container a:hover {
-  text-decoration: underline;
-}
-
-#lista-compras {
-  margin-top: 20px;
-}
-
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-li {
-  display: flex;
-  justify-content: space-between;
-  padding: 5px 0;
-}
-
-li button {
-  background-color: red;
-  border: none;
-  border-radius: 5px;
-  color: white;
-  padding: 5px;
-  cursor: pointer;
-}
-
-li button:hover {
-  background-color: darkred;
 }
 
 @media (max-width: 600px) {
@@ -279,4 +186,25 @@ li button:hover {
   td:nth-child(2) {
     width: auto; /* Ajusta a largura automaticamente em telas menores */
   }
+}
+
+.remove-icon {
+    width: 20px; /* Ajuste o tamanho conforme necessário */
+    height: 20px;
+}
+
+.btn-remover {
+    background: none; /* Remove o fundo do botão */
+    border: none;     /* Remove a borda do botão */
+    cursor: pointer;  /* Cursor de ponteiro ao passar sobre o botão */
+}
+
+.btn-remover img {
+    width: 20px;
+    height: 20px;
+}
+
+#btn-remover-todos {
+  display: none; /* Oculta o botão inicialmente */
+
 }

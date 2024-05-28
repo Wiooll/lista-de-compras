@@ -1,168 +1,140 @@
-import Parse from 'parse';
-
-// Substitua 'YOUR_APP_ID' e 'YOUR_JAVASCRIPT_KEY' com suas chaves do Back4App
-Parse.initialize("QjHdnKmTtyV4ZiyXQrWXaN7fNKpxkFpj666ad8YM", "j25PWNRqvIa8pWjxoMwfEOBNVYNcRQxdHVhZPfiV");
-Parse.serverURL = 'https://parseapi.back4app.com/';
-
-document.addEventListener('DOMContentLoaded', () => {
-  const loginForm = document.getElementById('login-form');
-  const cadastroForm = document.getElementById('cadastro-form');
-
-  if (loginForm) {
-    loginForm.addEventListener('submit', async (event) => {
-      event.preventDefault();
-      const username = document.getElementById('login-username').value;
-      const password = document.getElementById('login-password').value;
-
-      try {
-        await Parse.User.logIn(username, password);
-        window.location.href = 'index.html';
-      } catch (error) {
-        alert('Usuário ou senha inválidos');
-      }
-    });
-  }
-
-  if (cadastroForm) {
-    cadastroForm.addEventListener('submit', async (event) => {
-      event.preventDefault();
-      const username = document.getElementById('cadastro-username').value;
-      const password = document.getElementById('cadastro-password').value;
-
-      const user = new Parse.User();
-      user.set("username", username);
-      user.set("password", password);
-
-      try {
-        await user.signUp();
-        alert('Usuário cadastrado com sucesso!');
-        window.location.href = 'login.html';
-      } catch (error) {
-        alert(`Erro ao cadastrar usuário: ${error.message}`);
-      }
-    });
-  }
-
-  carregarProdutos();
-});
-
 // Função para adicionar produto à lista de compras
 function adicionarProduto(nomeProduto, quantidade = 1, preco = 0, selecionado = false) {
-  const Produto = Parse.Object.extend('Produto');
-  const produto = new Produto();
-
-  produto.set('nome', nomeProduto);
-  produto.set('quantidade', quantidade);
-  produto.set('preco', preco);
-  produto.set('selecionado', selecionado);
-
-  produto.save().then(() => {
-    carregarProdutos();
-  });
-}
-
-// Função para carregar produtos do Parse
-function carregarProdutos() {
-  const Produto = Parse.Object.extend('Produto');
-  const query = new Parse.Query(Produto);
-
-  query.find().then((resultados) => {
-    const listaProdutos = document.getElementById('produtos').getElementsByTagName('tbody')[0];
-    listaProdutos.innerHTML = '';
-
-    resultados.forEach((produto) => {
-      const novaLinha = listaProdutos.insertRow();
-
-      const celulaCheckbox = novaLinha.insertCell(0);
-      const celulaNome = novaLinha.insertCell(1);
-      const celulaQuantidade = novaLinha.insertCell(2);
-      const celulaPreco = novaLinha.insertCell(3);
-      const celulaRemover = novaLinha.insertCell(4);
-
-      const checkbox = document.createElement('input');
-      checkbox.type = 'checkbox';
-      checkbox.classList.add('checkbox');
-      checkbox.checked = produto.get('selecionado');
-      checkbox.addEventListener('change', () => {
-        produto.set('selecionado', checkbox.checked);
-        produto.save();
-        atualizarPrecoSelecionado();
-      });
-      celulaCheckbox.appendChild(checkbox);
-
-      celulaNome.textContent = produto.get('nome');
-
-      const inputQuantidade = document.createElement('input');
-      inputQuantidade.type = 'number';
-      inputQuantidade.placeholder = 'Qtd';
-      inputQuantidade.value = produto.get('quantidade');
-      inputQuantidade.addEventListener('change', () => {
-        produto.set('quantidade', inputQuantidade.value);
-        produto.save();
-        atualizarPrecoTotal();
-      });
-      celulaQuantidade.appendChild(inputQuantidade);
-
-      const inputPreco = document.createElement('input');
-      inputPreco.type = 'number';
-      inputPreco.placeholder = 'Preço';
-      inputPreco.value = produto.get('preco');
-      inputPreco.addEventListener('change', () => {
-        produto.set('preco', inputPreco.value);
-        produto.save();
-        atualizarPrecoTotal();
-      });
-      celulaPreco.appendChild(inputPreco);
-
-      const btnRemover = document.createElement('button');
-      btnRemover.textContent = 'Remover';
-      btnRemover.classList.add('btn-remover');
-      btnRemover.addEventListener('click', () => {
-        produto.destroy().then(() => {
-          carregarProdutos();
-        });
-      });
-      celulaRemover.appendChild(btnRemover);
-    });
-
-    atualizarPrecoTotal();
-  });
-}
-
-function adicionarItensColados() {
-  const itensColados = document.getElementById('itens-colados').value.trim();
-  if (itensColados) {
-    const itens = itensColados.split('\n');
-    itens.forEach(item => {
-      const nomeProduto = item.trim();
-      if (nomeProduto) {
-        adicionarProduto(nomeProduto);
-      }
-    });
-    atualizarPrecoTotal();
-    document.getElementById('itens-colados').value = '';
+  if (quantidade < 0 || preco < 0) {
+    alert('Quantidade e preço devem ser valores positivos.');
+    return;
   }
-}
 
-function atualizarPrecoTotal() {
-  const Produto = Parse.Object.extend('Produto');
-  const query = new Parse.Query(Produto);
+  const listaProdutos = document.getElementById('produtos').getElementsByTagName('tbody')[0];
+  const novaLinha = listaProdutos.insertRow();
 
-  query.find().then((resultados) => {
-    let precoTotal = 0;
-    resultados.forEach((produto) => {
-      const quantidade = produto.get('quantidade');
-      const preco = produto.get('preco');
-      if (!isNaN(quantidade) && !isNaN(preco)) {
-        precoTotal += quantidade * preco;
-      }
-    });
+  const celulaCheckbox = novaLinha.insertCell(0);
+  const celulaNome = novaLinha.insertCell(1);
+  const celulaQuantidade = novaLinha.insertCell(2);
+  const celulaPreco = novaLinha.insertCell(3);
+  const celulaRemover = novaLinha.insertCell(4);
 
-    document.getElementById('preco-total').textContent = precoTotal.toFixed(2);
+  const checkbox = document.createElement('input');
+  checkbox.type = 'checkbox';
+  checkbox.classList.add('checkbox');
+  checkbox.checked = selecionado;
+  checkbox.addEventListener('change', () => {
     atualizarPrecoSelecionado();
+    salvarLista();
   });
+  celulaCheckbox.appendChild(checkbox);
+
+  celulaNome.textContent = nomeProduto;
+
+  const inputQuantidade = document.createElement('input');
+  inputQuantidade.type = 'number';
+  inputQuantidade.placeholder = 'Qtd';
+  inputQuantidade.value = quantidade;
+  inputQuantidade.min = 0;  // Impede valores negativos
+  inputQuantidade.addEventListener('change', () => {
+    if (inputQuantidade.value < 0) inputQuantidade.value = 0;
+    atualizarPrecoTotal();
+    salvarLista();
+  });
+  celulaQuantidade.appendChild(inputQuantidade);
+
+  const inputPreco = document.createElement('input');
+  inputPreco.type = 'number';
+  inputPreco.placeholder = 'Preço';
+  inputPreco.value = preco;
+  inputPreco.min = 0;  // Impede valores negativos
+  inputPreco.addEventListener('change', () => {
+    if (inputPreco.value < 0) inputPreco.value = 0;
+    atualizarPrecoTotal();
+    salvarLista();
+  });
+  celulaPreco.appendChild(inputPreco);
+
+  const btnRemover = document.createElement('button');
+  const iconRemover = document.createElement('img');
+  iconRemover.src = 'img/lixeira.png'; // Certifique-se de que a imagem da lixeira está na pasta 'images'
+  iconRemover.alt = 'Remover';
+  iconRemover.classList.add('remove-icon');
+  btnRemover.appendChild(iconRemover);
+  btnRemover.classList.add('btn-remover');
+  btnRemover.addEventListener('click', () => {
+    removerProduto(novaLinha);
+    salvarLista();
+    atualizarVisibilidadeElementos(); // Atualiza a visibilidade dos elementos ao remover produto
+  });
+  celulaRemover.appendChild(btnRemover);
+
+  atualizarVisibilidadeElementos(); // Atualiza a visibilidade dos elementos ao adicionar produto
+  salvarLista(); // Salva a lista de produtos
 }
 
+// Função para remover um produto da lista
+function removerProduto(linha) {
+  const quantidade = parseFloat(linha.cells[2].querySelector('input').value);
+  const preco = parseFloat(linha.cells[3].querySelector('input').value);
+  if (!isNaN(quantidade) && !isNaN(preco)) {
+    const precoProduto = quantidade * preco;
+    const precoTotalElem = document.getElementById('preco-total');
+    const precoTotalAtual = parseFloat(precoTotalElem.textContent);
+    precoTotalElem.textContent = (precoTotalAtual - precoProduto).toFixed(2);
+
+    const checkbox = linha.cells[0].querySelector('.checkbox');
+    if (checkbox.checked) {
+      const precoSelecionadoElem = document.getElementById('preco-selecionado');
+      const precoSelecionadoAtual = parseFloat(precoSelecionadoElem.textContent);
+      precoSelecionadoElem.textContent = (precoSelecionadoAtual - precoProduto).toFixed(2);
+    }
+  }
+  linha.remove();
+  salvarLista(); // Salva a lista de produtos após remover
+  atualizarVisibilidadeElementos(); // Atualiza a visibilidade dos elementos ao remover produto
+}
+
+// Função para remover todos os produtos da lista
+function removerTodosProdutos() {
+  const tabelaBody = document.querySelector('#produtos tbody');
+  tabelaBody.innerHTML = ''; // Limpa o conteúdo da tabela
+  document.getElementById('preco-total').textContent = '0.00';
+  document.getElementById('preco-selecionado').textContent = '0.00';
+  salvarLista(); // Salva a lista vazia
+  atualizarVisibilidadeElementos(); // Atualiza a visibilidade dos elementos ao remover todos os produtos
+}
+
+// Função para atualizar a visibilidade da tabela, dos totais e do botão "Remover Tudo"
+function atualizarVisibilidadeElementos() {
+  const tabela = document.getElementById('produtos');
+  const totals = document.querySelector('.totals');
+  const btnRemoverTodos = document.getElementById('btn-remover-todos');
+  const linhas = document.querySelectorAll('#produtos tbody tr');
+
+  const temProdutos = linhas.length > 0;
+  
+  tabela.classList.toggle('hidden', !temProdutos);
+  totals.classList.toggle('hidden', !temProdutos);
+  btnRemoverTodos.classList.toggle('hidden', !temProdutos);
+
+  // Atualizar a visibilidade dos totais especificamente
+  document.querySelector('.totals').style.display = temProdutos ? 'block' : 'none';
+}
+
+// Função para atualizar o preço total
+function atualizarPrecoTotal() {
+  const linhas = document.querySelectorAll('#produtos tbody tr');
+  let precoTotal = 0;
+
+  linhas.forEach(linha => {
+    const quantidade = parseFloat(linha.cells[2].querySelector('input').value);
+    const preco = parseFloat(linha.cells[3].querySelector('input').value);
+    if (!isNaN(quantidade) && !isNaN(preco)) {
+      precoTotal += quantidade * preco;
+    }
+  });
+
+  document.getElementById('preco-total').textContent = precoTotal.toFixed(2);
+  atualizarPrecoSelecionado();
+}
+
+// Função para atualizar o preço dos itens selecionados
 function atualizarPrecoSelecionado() {
   const checkboxes = document.querySelectorAll('#produtos tbody input[type="checkbox"]');
   let precoSelecionado = 0;
@@ -178,33 +150,6 @@ function atualizarPrecoSelecionado() {
   });
 
   document.getElementById('preco-selecionado').textContent = precoSelecionado.toFixed(2);
-}
-
-function removerProduto(linha) {
-  const Produto = Parse.Object.extend('Produto');
-  const query = new Parse.Query(Produto);
-  const nomeProduto = linha.cells[1].textContent;
-
-  query.equalTo('nome', nomeProduto);
-  query.first().then((produto) => {
-    if (produto) {
-      produto.destroy().then(() => {
-        carregarProdutos();
-      });
-    }
-  });
-}
-
-function removerTodosProdutos() {
-  const Produto = Parse.Object.extend('Produto');
-  const query = new Parse.Query(Produto);
-
-  query.find().then((resultados) => {
-    resultados.forEach((produto) => {
-      produto.destroy();
-    });
-    carregarProdutos();
-  });
 }
 
 // Função para salvar a lista de produtos no Local Storage
@@ -231,7 +176,29 @@ function carregarLista() {
   produtos.forEach(produto => {
     adicionarProduto(produto.nome, produto.quantidade, produto.preco, produto.selecionado);
   });
+  atualizarVisibilidadeElementos(); // Atualiza a visibilidade dos elementos ao carregar a página
 }
 
 // Carregar a lista de produtos ao carregar a página
-window.addEventListener('load', carregarProdutos);
+window.addEventListener('load', carregarLista);
+
+function adicionarItensColados() {
+  const itensColados = document.getElementById('itens-colados').value.trim();
+  if (itensColados) {
+    const itens = itensColados.split('\n');
+    itens.forEach(item => {
+      const nomeProduto = item.trim();
+      if (nomeProduto) {
+        adicionarProduto(nomeProduto, 1, 0, false); // Define quantidade e preço como 1 e 0 por padrão
+      }
+    });
+    atualizarPrecoTotal();
+    document.getElementById('itens-colados').value = '';
+  }
+}
+
+document.getElementById('btn-adicionar-colados').addEventListener('click', adicionarItensColados);
+
+
+// Adicionar evento ao botão de adicionar itens colados
+document.getElementById('btn-adicionar-colados').addEventListener('click', adicionarItensColados);

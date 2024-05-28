@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       try {
         await Parse.User.logIn(username, password);
-        window.location.href = 'C:\Users\willian.sousa\Documents\Wil\SITES EM DESENVOLVIMENTO\SITE LISTA DE COMPRAS\VERSÃO 9 - back4app\index.html';
+        window.location.href = 'index.html';
       } catch (error) {
         alert('Usuário ou senha inválidos');
       }
@@ -42,23 +42,26 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   }
+
+  carregarProdutos();
 });
 
-// Funções para manipular a lista de compras
-function adicionarProduto(nomeProduto) {
-  // Atualize esta função para salvar no Parse
+// Função para adicionar produto à lista de compras
+function adicionarProduto(nomeProduto, quantidade = 1, preco = 0, selecionado = false) {
   const Produto = Parse.Object.extend('Produto');
   const produto = new Produto();
 
   produto.set('nome', nomeProduto);
-  produto.set('quantidade', 1);
-  produto.set('preco', 0);
+  produto.set('quantidade', quantidade);
+  produto.set('preco', preco);
+  produto.set('selecionado', selecionado);
 
   produto.save().then(() => {
     carregarProdutos();
   });
 }
 
+// Função para carregar produtos do Parse
 function carregarProdutos() {
   const Produto = Parse.Object.extend('Produto');
   const query = new Parse.Query(Produto);
@@ -79,7 +82,12 @@ function carregarProdutos() {
       const checkbox = document.createElement('input');
       checkbox.type = 'checkbox';
       checkbox.classList.add('checkbox');
-      checkbox.addEventListener('change', atualizarPrecoSelecionado);
+      checkbox.checked = produto.get('selecionado');
+      checkbox.addEventListener('change', () => {
+        produto.set('selecionado', checkbox.checked);
+        produto.save();
+        atualizarPrecoSelecionado();
+      });
       celulaCheckbox.appendChild(checkbox);
 
       celulaNome.textContent = produto.get('nome');
@@ -226,4 +234,4 @@ function carregarLista() {
 }
 
 // Carregar a lista de produtos ao carregar a página
-window.addEventListener('load', carregarLista);
+window.addEventListener('load', carregarProdutos);

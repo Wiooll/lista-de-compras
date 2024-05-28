@@ -129,7 +129,8 @@ td input[type="number"] {
   box-sizing: border-box;
 }
 
-td button {
+/* Estilos para o botão de remover com imagem */
+.remove-button {
   padding: 5px 10px;
   background-color: #dc3545; /* Cor dos botões de remover ajustada para vermelho */
   color: white;
@@ -137,9 +138,17 @@ td button {
   border-radius: 5px;
   cursor: pointer;
   font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: url('caminho/para/sua-imagem.png');
+  background-repeat: no-repeat;
+  background-position: center left;
+  background-size: 16px 16px;
+  padding-left: 25px; /* Ajuste o padding para dar espaço para a imagem */
 }
 
-td button:hover {
+.remove-button:hover {
   background-color: #c82333; /* Cor dos botões de remover ao passar o mouse ajustada para um vermelho mais escuro */
 }
 

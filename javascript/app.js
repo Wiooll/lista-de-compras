@@ -111,3 +111,13 @@ function removerProduto(linha) {
   }
   linha.remove();
 }
+
+// Função para remover todos os produtos da lista
+function removerTodosProdutos() {
+  const tabelaBody = document.querySelector('#produtos tbody');
+  while (tabelaBody.firstChild) {
+    tabelaBody.removeChild(tabelaBody.firstChild);
+  }
+  document.getElementById('preco-total').textContent = '0.00';
+  document.getElementById('preco-selecionado').textContent = '0.00';
+}

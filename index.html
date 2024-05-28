@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>LISTA DE COMPRAS</title>
-  <link rel="stylesheet" href="C:\Users\willian.sousa\Documents\Wil\SITES EM DESENVOLVIMENTO\SITE LISTA DE COMPRAS\VERSÃO 5\css\style.css">
+  <link rel="stylesheet" href="C:\Users\willian.sousa\Documents\Wil\SITES EM DESENVOLVIMENTO\SITE LISTA DE COMPRAS\VERSÃO 6\css\style.css">
 </head>
 <body>
   <header class="header">
@@ -13,7 +13,8 @@
 
   <div class="container">
     <div class="input-section">
-      <textarea id="itens-colados" placeholder="Nome do Produto (um por linha)"></textarea>
+      <textarea id="itens-colados" placeholder="ADICIONE OU COLE AQUI OS ITENS(OBS: UM POR LINHA!)"></textarea>
+	  <br><br>
       <button onclick="adicionarItensColados()">Adicionar Itens</button>
     </div>
     <table id="produtos">
@@ -34,12 +35,13 @@
       <div>Total: R$ <span id="preco-total">0.00</span></div>
       <div>Selecionados: R$ <span id="preco-selecionado">0.00</span></div>
     </div>
+    <button id="btn-remover-todos" onclick="removerTodosProdutos()">Remover Todos os Itens</button>
   </div>
 
   <footer class="footer">
     <p>&copy; 2024 Willian Sousa. Todos os direitos reservados.</p>
   </footer>
 
-  <script src="C:\Users\willian.sousa\Documents\Wil\SITES EM DESENVOLVIMENTO\SITE LISTA DE COMPRAS\VERSÃO 5\javascript\app.js"></script>
+  <script src="C:\Users\willian.sousa\Documents\Wil\SITES EM DESENVOLVIMENTO\SITE LISTA DE COMPRAS\VERSÃO 6\javascript\app.js"></script>
 </body>
 </html>

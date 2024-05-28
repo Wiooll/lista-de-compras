@@ -1,14 +1,19 @@
-/* style.css */
-
 body {
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
   background-color: #f4f4f4;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.header {
+  background-color: black;
+  color: white;
+  text-align: center;
+  padding: 0.5rem 0;
+  width: 100%;
 }
 
 .container {
@@ -16,21 +21,25 @@ body {
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  width: 600px;
+  width: 100%;
+  max-width: 600px;
+  margin: auto;
+  margin-top: 80px;
+  flex-grow: 1;
 }
 
 h1 {
-  text-align: center;
-  margin-bottom: 20px;
+  margin: 0;
 }
 
 .input-section {
   display: flex;
+  flex-direction: column;
   gap: 10px;
   margin-bottom: 20px;
 }
 
-.input-section input, .input-section button {
+.input-section textarea, .input-section button {
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 4px;
@@ -50,12 +59,14 @@ table {
   width: 100%;
   border-collapse: collapse;
   margin-bottom: 20px;
+  table-layout: fixed;
 }
 
 table th, table td {
   border: 1px solid #ccc;
   padding: 10px;
   text-align: left;
+  word-wrap: break-word;
 }
 
 table th {
@@ -75,4 +86,38 @@ table th {
 
 .totals div {
   margin-bottom: 10px;
+}
+
+.footer {
+  background-color: black;
+  color: white;
+  text-align: center;
+  padding: 0.5rem 0;
+  width: 100%;
+}
+
+/* Media Queries for Responsive Design */
+@media (max-width: 600px) {
+  .input-section {
+    flex-direction: column;
+  }
+
+  .input-section textarea, .input-section button {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  table th, table td {
+    font-size: 14px;
+    padding: 8px;
+  }
+
+  .checkbox {
+    width: 16px;
+    height: 16px;
+  }
+
+  .totals div {
+    font-size: 14px;
+  }
 }

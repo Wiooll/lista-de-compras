@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LISTA DE COMPRAS</title>
+  <link rel="stylesheet" href="C:\Users\willian.sousa\Documents\Wil\SITES EM DESENVOLVIMENTO\SITE LISTA DE COMPRAS\VERSÃO 3\css\style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>LISTA DE COMPRAS</h1>
+    <div class="input-section">
+      <input type="text" id="nome-produto" placeholder="Nome do Produto">
+	  <button onclick="adicionarProduto()">Adicionar Produto</button>
+	  <textarea id="itens-colados" placeholder="Cole os itens aqui (um por linha)"></textarea>
+      <button onclick="adicionarItensColados()">Adicionar Itens Colados</button>
+    </div>
+    <table id="produtos">
+      <thead>
+        <tr>
+          <th>CHECK?</th>
+          <th>ITEM</th>
+          <th>VALOR</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Produtos serão adicionados aqui -->
+      </tbody>
+    </table>
+    <div class="totals">
+      <div>Total: R$ <span id="preco-total">0.00</span></div>
+      <div>Selecionados: R$ <span id="preco-selecionado">0.00</span></div>
+    </div>
+  </div>
+  <script src="C:\Users\willian.sousa\Documents\Wil\SITES EM DESENVOLVIMENTO\SITE LISTA DE COMPRAS\VERSÃO 3\javascript\app.js"></script>
+</body>
+</html>

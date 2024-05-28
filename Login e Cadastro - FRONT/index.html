@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LISTA DE COMPRAS</title>
+  <link rel="stylesheet" href="C:\Users\willian.sousa\Documents\Wil\SITES EM DESENVOLVIMENTO\SITE LISTA DE COMPRAS\VERSÃO 2\Login e Cadastro - FRONT\css\style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>LISTA DE COMPRAS</h1>
+    <div id="auth">
+      <form id="register-form" style="display:none;">
+        <div class="input-group">
+          <label for="register-username">Nome de usuário</label>
+          <input type="text" id="register-username" placeholder="Nome de usuário" required>
+        </div>
+        <div class="input-group">
+          <label for="register-password">Senha</label>
+          <input type="password" id="register-password" placeholder="Senha" required>
+        </div>
+        <div class="input-group">
+          <label for="confirm-password">Confirme a senha</label>
+          <input type="password" id="confirm-password" placeholder="Confirme a senha" required>
+        </div>
+        <button type="submit">Registrar</button>
+        <p>Já tem uma conta? <a href="#" onclick="showLoginForm()">Faça login</a></p>
+      </form>
+      <form id="login-form">
+        <div class="input-group">
+          <label for="username">Nome de usuário</label>
+          <input type="text" id="username" placeholder="Nome de usuário" required>
+        </div>
+        <div class="input-group">
+          <label for="senha">Senha</label>
+          <input type="password" id="senha" placeholder="Senha" required>
+        </div>
+        <button type="submit">Entrar</button>
+        <p>Não tem uma conta? <a href="#" onclick="showRegisterForm()">Registre-se</a></p>
+      </form>
+    </div>
+    <div id="lista-compras" style="display:none;">
+      <input type="text" id="nome-produto" placeholder="Nome do Produto">
+      <input type="number" id="preco-produto" placeholder="Preço do Produto">
+      <button onclick="adicionarProduto()">Adicionar Produto</button>
+      <ul id="produtos"></ul>
+      <div>Total: R$ <span id="preco-total">0.00</span></div>
+    </div>
+  </div>
+  <script src="C:\Users\willian.sousa\Documents\Wil\SITES EM DESENVOLVIMENTO\SITE LISTA DE COMPRAS\VERSÃO 2\Login e Cadastro - FRONT\javascript\app.js"></script>
+</body>
+</html>

@@ -1,4 +1,4 @@
-#🚀 Apresentando meu novo projeto: um web aplicativo de lista de compras! 🛒
+🚀 Apresentando meu novo projeto: um web aplicativo de lista de compras! 🛒
 
 Estou animado em compartilhar o desenvolvimento do meu mais recente projeto, um web aplicativo projetado para facilitar e otimizar suas compras diárias.
 

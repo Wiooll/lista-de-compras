@@ -1,0 +1,13 @@
+Resumo
+Backend:
+
+Configure o servidor Express e conecte ao MongoDB.
+Crie modelos de dados para User e Item.
+Configure controladores para gerenciar a lógica de autenticação e operações com itens.
+Use middleware para proteger rotas.
+Configure as rotas para autenticação e gerenciamento de itens.
+Frontend:
+
+Configure formulários de registro e login e manuseie tokens de autenticação.
+Configure a página principal para buscar itens do backend e exibi-los.
+Adicione itens através do formulário e remova itens da tabela e do backend.

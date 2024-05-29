@@ -1,3 +1,14 @@
+//Função para controlar a exibição do menu quando o botão é clicado
+document.addEventListener('DOMContentLoaded', function() {
+  var menuBtn = document.querySelector('.menu-btn');
+  var menu = document.querySelector('.menu');
+
+  menuBtn.addEventListener('click', function() {
+    menu.classList.toggle('show');
+  });
+});
+
+
 // Função para adicionar produto à lista de compras
 function adicionarProduto(nomeProduto, quantidade = 1, preco = 0, selecionado = false) {
   if (quantidade < 0 || preco < 0) {

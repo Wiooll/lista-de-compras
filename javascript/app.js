@@ -9,7 +9,6 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // Função para adicionar produto à lista de compras
-
 function adicionarProduto(nomeProduto, quantidade = 1, preco = 0, selecionado = false) {
   // Verificar se a quantidade e o preço são valores positivos
   if (quantidade < 0 || preco < 0) {

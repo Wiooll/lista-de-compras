@@ -6,6 +6,11 @@
 }
 
 body {
+  background-image: url('img/mercado.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
   font-family: 'Arial', sans-serif;
   background-color: #f0f2f5;
   color: #333;
@@ -14,6 +19,7 @@ body {
   align-items: center;
   padding: 20px;
 }
+
 
 /* Estilos para o botão de menu */
 .menu-btn {

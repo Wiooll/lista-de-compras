@@ -23,7 +23,7 @@ function adicionarProduto(nomeProduto, quantidade = 1, preco = 0, selecionado = 
   for (let i = 0; i < linhas.length; i++) {
     const nomeExistente = linhas[i].getElementsByTagName('td')[1].textContent;
     if (nomeExistente === nomeProduto) {
-      alert('Este item já está na lista.');
+      alert('OPS: Este item já está na lista.');
       return;
     }
   }
@@ -130,6 +130,7 @@ function atualizarVisibilidadeElementos() {
   const linhas = document.querySelectorAll('#produtos tbody tr');
 
   const temProdutos = linhas.length > 0;
+  console.log(`Tem produtos? ${temProdutos}`);
   
   tabela.classList.toggle('hidden', !temProdutos);
   totals.classList.toggle('hidden', !temProdutos);

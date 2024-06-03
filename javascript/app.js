@@ -1,11 +1,32 @@
+//Função para controlar a exibição do menu quando o botão é clicado
+document.addEventListener('DOMContentLoaded', function() {
+  var menuBtn = document.querySelector('.menu-btn');
+  var menu = document.querySelector('.menu');
+
+  menuBtn.addEventListener('click', function() {
+    menu.classList.toggle('show');
+  });
+});
+
 // Função para adicionar produto à lista de compras
 function adicionarProduto(nomeProduto, quantidade = 1, preco = 0, selecionado = false) {
+  // Verificar se a quantidade e o preço são valores positivos
   if (quantidade < 0 || preco < 0) {
     alert('Quantidade e preço devem ser valores positivos.');
     return;
   }
 
+  // Verificação de item duplicado
   const listaProdutos = document.getElementById('produtos').getElementsByTagName('tbody')[0];
+  const linhas = listaProdutos.getElementsByTagName('tr');
+  for (let i = 0; i < linhas.length; i++) {
+    const nomeExistente = linhas[i].getElementsByTagName('td')[1].textContent;
+    if (nomeExistente === nomeProduto) {
+      alert('OPS: Este item já está na lista.');
+      return;
+    }
+  }
+
   const novaLinha = listaProdutos.insertRow();
 
   const celulaCheckbox = novaLinha.insertCell(0);
@@ -108,6 +129,7 @@ function atualizarVisibilidadeElementos() {
   const linhas = document.querySelectorAll('#produtos tbody tr');
 
   const temProdutos = linhas.length > 0;
+  console.log(`Tem produtos? ${temProdutos}`);
   
   tabela.classList.toggle('hidden', !temProdutos);
   totals.classList.toggle('hidden', !temProdutos);

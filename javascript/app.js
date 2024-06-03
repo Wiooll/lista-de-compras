@@ -197,8 +197,5 @@ function adicionarItensColados() {
   }
 }
 
-document.getElementById('btn-adicionar-colados').addEventListener('click', adicionarItensColados);
-
-
 // Adicionar evento ao botão de adicionar itens colados
 document.getElementById('btn-adicionar-colados').addEventListener('click', adicionarItensColados);

@@ -6,7 +6,7 @@
 }
 
 body {
-  background-image: url('img\carrinho.png');
+  background-image: url('img/carrinho.png'); /* Corrigida a barra invertida */
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -269,5 +269,4 @@ td button:hover {
 
 #btn-remover-todos {
   display: none; /* Oculta o botão inicialmente */
-
 }

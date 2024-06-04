@@ -1,3 +1,5 @@
+'use strict';
+
 //Função para controlar a exibição do menu quando o botão é clicado
 document.addEventListener('DOMContentLoaded', function() {
   var menuBtn = document.querySelector('.menu-btn');
@@ -130,14 +132,21 @@ function atualizarVisibilidadeElementos() {
 
   const temProdutos = linhas.length > 0;
   console.log(`Tem produtos? ${temProdutos}`);
-  
+
+  // Alternar a classe 'hidden' com base na condição
   tabela.classList.toggle('hidden', !temProdutos);
   totals.classList.toggle('hidden', !temProdutos);
   btnRemoverTodos.classList.toggle('hidden', !temProdutos);
-
-  // Atualizar a visibilidade dos totais especificamente
-  document.querySelector('.totals').style.display = temProdutos ? 'block' : 'none';
 }
+
+// Chama a função ao carregar a página
+document.addEventListener('DOMContentLoaded', (event) => {
+  atualizarVisibilidadeElementos();
+});
+
+// Atualiza a visibilidade dos elementos após adicionar um novo produto
+  atualizarVisibilidadeElementos();
+
 
 // Função para atualizar o preço total
 function atualizarPrecoTotal() {

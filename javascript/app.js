@@ -1,9 +1,9 @@
 'use strict';
 
-//Função para controlar a exibição do menu quando o botão é clicado
+// Função para controlar a exibição do menu quando o botão é clicado
 document.addEventListener('DOMContentLoaded', function() {
-  var menuBtn = document.querySelector('.menu-btn');
-  var menu = document.querySelector('.menu');
+  const menuBtn = document.querySelector('.menu-btn');
+  const menu = document.querySelector('.menu');
 
   menuBtn.addEventListener('click', function() {
     menu.classList.toggle('show');
@@ -12,17 +12,16 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Função para adicionar produto à lista de compras
 function adicionarProduto(nomeProduto, quantidade = 1, preco = 0, selecionado = false) {
-  // Verificar se a quantidade e o preço são valores positivos
   if (quantidade < 0 || preco < 0) {
     alert('Quantidade e preço devem ser valores positivos.');
     return;
   }
 
-  // Verificação de item duplicado
-  const listaProdutos = document.getElementById('produtos').getElementsByTagName('tbody')[0];
-  const linhas = listaProdutos.getElementsByTagName('tr');
+  const listaProdutos = document.getElementById('produtos').querySelector('tbody');
+  const linhas = listaProdutos.querySelectorAll('tr');
+  
   for (let i = 0; i < linhas.length; i++) {
-    const nomeExistente = linhas[i].getElementsByTagName('td')[1].textContent;
+    const nomeExistente = linhas[i].querySelector('td:nth-child(2)').textContent;
     if (nomeExistente === nomeProduto) {
       alert('OPS: Este item já está na lista.');
       return;
@@ -53,7 +52,7 @@ function adicionarProduto(nomeProduto, quantidade = 1, preco = 0, selecionado = 
   inputQuantidade.type = 'number';
   inputQuantidade.placeholder = 'Qtd';
   inputQuantidade.value = quantidade;
-  inputQuantidade.min = 0;  // Impede valores negativos
+  inputQuantidade.min = 0;
   inputQuantidade.addEventListener('change', () => {
     if (inputQuantidade.value < 0) inputQuantidade.value = 0;
     atualizarPrecoTotal();
@@ -65,7 +64,7 @@ function adicionarProduto(nomeProduto, quantidade = 1, preco = 0, selecionado = 
   inputPreco.type = 'number';
   inputPreco.placeholder = 'Preço';
   inputPreco.value = preco;
-  inputPreco.min = 0;  // Impede valores negativos
+  inputPreco.min = 0;
   inputPreco.addEventListener('change', () => {
     if (inputPreco.value < 0) inputPreco.value = 0;
     atualizarPrecoTotal();
@@ -75,7 +74,7 @@ function adicionarProduto(nomeProduto, quantidade = 1, preco = 0, selecionado = 
 
   const btnRemover = document.createElement('button');
   const iconRemover = document.createElement('img');
-  iconRemover.src = 'img/lixeira.png'; // Certifique-se de que a imagem da lixeira está na pasta 'images'
+  iconRemover.src = 'img/lixeira.png';
   iconRemover.alt = 'Remover';
   iconRemover.classList.add('remove-icon');
   btnRemover.appendChild(iconRemover);
@@ -83,12 +82,12 @@ function adicionarProduto(nomeProduto, quantidade = 1, preco = 0, selecionado = 
   btnRemover.addEventListener('click', () => {
     removerProduto(novaLinha);
     salvarLista();
-    atualizarVisibilidadeElementos(); // Atualiza a visibilidade dos elementos ao remover produto
+    atualizarVisibilidadeElementos();
   });
   celulaRemover.appendChild(btnRemover);
 
-  atualizarVisibilidadeElementos(); // Atualiza a visibilidade dos elementos ao adicionar produto
-  salvarLista(); // Salva a lista de produtos
+  atualizarVisibilidadeElementos();
+  salvarLista();
 }
 
 // Função para remover um produto da lista
@@ -109,18 +108,18 @@ function removerProduto(linha) {
     }
   }
   linha.remove();
-  salvarLista(); // Salva a lista de produtos após remover
-  atualizarVisibilidadeElementos(); // Atualiza a visibilidade dos elementos ao remover produto
+  salvarLista();
+  atualizarVisibilidadeElementos();
 }
 
 // Função para remover todos os produtos da lista
 function removerTodosProdutos() {
   const tabelaBody = document.querySelector('#produtos tbody');
-  tabelaBody.innerHTML = ''; // Limpa o conteúdo da tabela
+  tabelaBody.innerHTML = '';
   document.getElementById('preco-total').textContent = '0.00';
   document.getElementById('preco-selecionado').textContent = '0.00';
-  salvarLista(); // Salva a lista vazia
-  atualizarVisibilidadeElementos(); // Atualiza a visibilidade dos elementos ao remover todos os produtos
+  salvarLista();
+  atualizarVisibilidadeElementos();
 }
 
 // Função para atualizar a visibilidade da tabela, dos totais e do botão "Remover Tudo"
@@ -133,7 +132,6 @@ function atualizarVisibilidadeElementos() {
   const temProdutos = linhas.length > 0;
   console.log(`Tem produtos? ${temProdutos}`);
 
-  // Alternar a classe 'hidden' com base na condição
   tabela.classList.toggle('hidden', !temProdutos);
   totals.classList.toggle('hidden', !temProdutos);
   btnRemoverTodos.classList.toggle('hidden', !temProdutos);
@@ -142,11 +140,8 @@ function atualizarVisibilidadeElementos() {
 // Chama a função ao carregar a página
 document.addEventListener('DOMContentLoaded', (event) => {
   atualizarVisibilidadeElementos();
+  carregarLista(); // Adicionei para garantir que a lista seja carregada ao carregar a página
 });
-
-// Atualiza a visibilidade dos elementos após adicionar um novo produto
-  atualizarVisibilidadeElementos();
-
 
 // Função para atualizar o preço total
 function atualizarPrecoTotal() {
@@ -207,12 +202,13 @@ function carregarLista() {
   produtos.forEach(produto => {
     adicionarProduto(produto.nome, produto.quantidade, produto.preco, produto.selecionado);
   });
-  atualizarVisibilidadeElementos(); // Atualiza a visibilidade dos elementos ao carregar a página
+  atualizarVisibilidadeElementos();
 }
 
 // Carregar a lista de produtos ao carregar a página
 window.addEventListener('load', carregarLista);
 
+// Função para adicionar itens colados
 function adicionarItensColados() {
   const itensColados = document.getElementById('itens-colados').value.trim();
   if (itensColados) {
@@ -220,7 +216,7 @@ function adicionarItensColados() {
     itens.forEach(item => {
       const nomeProduto = item.trim();
       if (nomeProduto) {
-        adicionarProduto(nomeProduto, 1, 0, false); // Define quantidade e preço como 1 e 0 por padrão
+        adicionarProduto(nomeProduto, 1, 0, false);
       }
     });
     atualizarPrecoTotal();

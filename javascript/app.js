@@ -1,11 +1,13 @@
-//Função para controlar a exibição do menu quando o botão é clicado
+// Função para controlar a exibição do menu quando o botão é clicado
 document.addEventListener('DOMContentLoaded', function() {
   var menuBtn = document.querySelector('.menu-btn');
   var menu = document.querySelector('.menu');
 
-  menuBtn.addEventListener('click', function() {
-    menu.classList.toggle('show');
-  });
+  if (menuBtn) {
+    menuBtn.addEventListener('click', function() {
+      menu.classList.toggle('show');
+    });
+  }
 });
 
 // Função para adicionar produto à lista de compras
@@ -73,7 +75,7 @@ function adicionarProduto(nomeProduto, quantidade = 1, preco = 0, selecionado = 
 
   const btnRemover = document.createElement('button');
   const iconRemover = document.createElement('img');
-  iconRemover.src = 'img/lixeira.png'; // Certifique-se de que a imagem da lixeira está na pasta 'images'
+  iconRemover.src = 'img/lixeira.png'; // Certifique-se de que a imagem da lixeira está na pasta 'img'
   iconRemover.alt = 'Remover';
   iconRemover.classList.add('remove-icon');
   btnRemover.appendChild(iconRemover);

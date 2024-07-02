@@ -1,9 +1,11 @@
-// Função para controlar a exibição do menu quando o botão é clicado
+// Inicializa o Parse com as credenciais do seu aplicativo Back4App
+Parse.initialize("QjHdnKmTtyV4ZiyXQrWXaN7fNKpxkFpj666ad8YM", "j25PWNRqvIa8pWjxoMwfEOBNVYNcRQxdHVhZPfiV");
+Parse.serverURL = 'https://parseapi.back4app.com/';
+
 document.addEventListener('DOMContentLoaded', function() {
   var menuBtn = document.querySelector('.menu-btn');
-  var menu = document.querySelector('.menu');
-
   if (menuBtn) {
+    var menu = document.querySelector('.menu');
     menuBtn.addEventListener('click', function() {
       menu.classList.toggle('show');
     });
@@ -12,13 +14,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Função para adicionar produto à lista de compras
 function adicionarProduto(nomeProduto, quantidade = 1, preco = 0, selecionado = false) {
-  // Verificar se a quantidade e o preço são valores positivos
   if (quantidade < 0 || preco < 0) {
     alert('Quantidade e preço devem ser valores positivos.');
     return;
   }
 
-  // Verificação de item duplicado
   const listaProdutos = document.getElementById('produtos').getElementsByTagName('tbody')[0];
   const linhas = listaProdutos.getElementsByTagName('tr');
   for (let i = 0; i < linhas.length; i++) {
@@ -53,7 +53,7 @@ function adicionarProduto(nomeProduto, quantidade = 1, preco = 0, selecionado = 
   inputQuantidade.type = 'number';
   inputQuantidade.placeholder = 'Qtd';
   inputQuantidade.value = quantidade;
-  inputQuantidade.min = 0;  // Impede valores negativos
+  inputQuantidade.min = 0;  
   inputQuantidade.addEventListener('change', () => {
     if (inputQuantidade.value < 0) inputQuantidade.value = 0;
     atualizarPrecoTotal();
@@ -65,7 +65,7 @@ function adicionarProduto(nomeProduto, quantidade = 1, preco = 0, selecionado = 
   inputPreco.type = 'number';
   inputPreco.placeholder = 'Preço';
   inputPreco.value = preco;
-  inputPreco.min = 0;  // Impede valores negativos
+  inputPreco.min = 0;
   inputPreco.addEventListener('change', () => {
     if (inputPreco.value < 0) inputPreco.value = 0;
     atualizarPrecoTotal();
@@ -75,7 +75,7 @@ function adicionarProduto(nomeProduto, quantidade = 1, preco = 0, selecionado = 
 
   const btnRemover = document.createElement('button');
   const iconRemover = document.createElement('img');
-  iconRemover.src = 'img/lixeira.png'; // Certifique-se de que a imagem da lixeira está na pasta 'img'
+  iconRemover.src = 'img/lixeira.png';
   iconRemover.alt = 'Remover';
   iconRemover.classList.add('remove-icon');
   btnRemover.appendChild(iconRemover);
@@ -83,44 +83,29 @@ function adicionarProduto(nomeProduto, quantidade = 1, preco = 0, selecionado = 
   btnRemover.addEventListener('click', () => {
     removerProduto(novaLinha);
     salvarLista();
-    atualizarVisibilidadeElementos(); // Atualiza a visibilidade dos elementos ao remover produto
+    atualizarVisibilidadeElementos();
   });
   celulaRemover.appendChild(btnRemover);
 
-  atualizarVisibilidadeElementos(); // Atualiza a visibilidade dos elementos ao adicionar produto
-  salvarLista(); // Salva a lista de produtos
+  atualizarVisibilidadeElementos();
+  salvarLista();
 }
 
 // Função para remover um produto da lista
 function removerProduto(linha) {
-  const quantidade = parseFloat(linha.cells[2].querySelector('input').value);
-  const preco = parseFloat(linha.cells[3].querySelector('input').value);
-  if (!isNaN(quantidade) && !isNaN(preco)) {
-    const precoProduto = quantidade * preco;
-    const precoTotalElem = document.getElementById('preco-total');
-    const precoTotalAtual = parseFloat(precoTotalElem.textContent);
-    precoTotalElem.textContent = (precoTotalAtual - precoProduto).toFixed(2);
-
-    const checkbox = linha.cells[0].querySelector('.checkbox');
-    if (checkbox.checked) {
-      const precoSelecionadoElem = document.getElementById('preco-selecionado');
-      const precoSelecionadoAtual = parseFloat(precoSelecionadoElem.textContent);
-      precoSelecionadoElem.textContent = (precoSelecionadoAtual - precoProduto).toFixed(2);
-    }
-  }
   linha.remove();
-  salvarLista(); // Salva a lista de produtos após remover
-  atualizarVisibilidadeElementos(); // Atualiza a visibilidade dos elementos ao remover produto
+  salvarLista();
+  atualizarVisibilidadeElementos();
 }
 
 // Função para remover todos os produtos da lista
 function removerTodosProdutos() {
   const tabelaBody = document.querySelector('#produtos tbody');
-  tabelaBody.innerHTML = ''; // Limpa o conteúdo da tabela
+  tabelaBody.innerHTML = ''; 
   document.getElementById('preco-total').textContent = '0.00';
   document.getElementById('preco-selecionado').textContent = '0.00';
-  salvarLista(); // Salva a lista vazia
-  atualizarVisibilidadeElementos(); // Atualiza a visibilidade dos elementos ao remover todos os produtos
+  salvarLista();
+  atualizarVisibilidadeElementos();
 }
 
 // Função para atualizar a visibilidade da tabela, dos totais e do botão "Remover Tudo"
@@ -131,13 +116,9 @@ function atualizarVisibilidadeElementos() {
   const linhas = document.querySelectorAll('#produtos tbody tr');
 
   const temProdutos = linhas.length > 0;
-  console.log(`Tem produtos? ${temProdutos}`);
-  
   tabela.classList.toggle('hidden', !temProdutos);
   totals.classList.toggle('hidden', !temProdutos);
   btnRemoverTodos.classList.toggle('hidden', !temProdutos);
-
-  // Atualizar a visibilidade dos totais especificamente
   document.querySelector('.totals').style.display = temProdutos ? 'block' : 'none';
 }
 
@@ -176,31 +157,38 @@ function atualizarPrecoSelecionado() {
   document.getElementById('preco-selecionado').textContent = precoSelecionado.toFixed(2);
 }
 
-// Função para salvar a lista de produtos no Local Storage
+// Função para salvar a lista de produtos no Back4App
 function salvarLista() {
   const linhas = document.querySelectorAll('#produtos tbody tr');
-  const produtos = [];
+  const Produtos = Parse.Object.extend("_Product");
 
-  linhas.forEach(linha => {
-    const produto = {
-      nome: linha.cells[1].textContent,
-      quantidade: linha.cells[2].querySelector('input').value,
-      preco: linha.cells[3].querySelector('input').value,
-      selecionado: linha.cells[0].querySelector('input[type="checkbox"]').checked
-    };
-    produtos.push(produto);
+  // Remover todos os produtos existentes no banco antes de salvar novamente
+  const query = new Parse.Query(Produtos);
+  query.find().then((results) => {
+    Parse.Object.destroyAll(results).then(() => {
+      linhas.forEach(linha => {
+        const produto = new Produtos();
+        produto.set("nome", linha.cells[1].textContent);
+        produto.set("quantidade", parseFloat(linha.cells[2].querySelector('input').value));
+        produto.set("preco", parseFloat(linha.cells[3].querySelector('input').value));
+        produto.set("selecionado", linha.cells[0].querySelector('input[type="checkbox"]').checked);
+        produto.save();
+      });
+    });
   });
-
-  localStorage.setItem('listaProdutos', JSON.stringify(produtos));
 }
 
-// Função para carregar a lista de produtos do Local Storage
+// Função para carregar a lista de produtos do Back4App
 function carregarLista() {
-  const produtos = JSON.parse(localStorage.getItem('listaProdutos')) || [];
-  produtos.forEach(produto => {
-    adicionarProduto(produto.nome, produto.quantidade, produto.preco, produto.selecionado);
+  const Produtos = Parse.Object.extend("_Product");
+  const query = new Parse.Query(Produtos);
+
+  query.find().then((results) => {
+    results.forEach((produto) => {
+      adicionarProduto(produto.get("nome"), produto.get("quantidade"), produto.get("preco"), produto.get("selecionado"));
+    });
+    atualizarVisibilidadeElementos();
   });
-  atualizarVisibilidadeElementos(); // Atualiza a visibilidade dos elementos ao carregar a página
 }
 
 // Carregar a lista de produtos ao carregar a página
@@ -213,7 +201,7 @@ function adicionarItensColados() {
     itens.forEach(item => {
       const nomeProduto = item.trim();
       if (nomeProduto) {
-        adicionarProduto(nomeProduto, 1, 0, false); // Define quantidade e preço como 1 e 0 por padrão
+        adicionarProduto(nomeProduto, 1, 0, false);
       }
     });
     atualizarPrecoTotal();
@@ -221,5 +209,4 @@ function adicionarItensColados() {
   }
 }
 
-// Adicionar evento ao botão de adicionar itens colados
 document.getElementById('btn-adicionar-colados').addEventListener('click', adicionarItensColados);

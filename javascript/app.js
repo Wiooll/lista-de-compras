@@ -1,4 +1,5 @@
-import Parse from '../node_modules/parse/dist/parse.min.js';
+
+import Parse from '../node_modules/parse/dist/parse.min.js'; // ajuste o caminho conforme necessário
 
 // Inicializa o Parse com as credenciais do seu aplicativo Back4App
 Parse.initialize("QjHdnKmTtyV4ZiyXQrWXaN7fNKpxkFpj666ad8YM", "j25PWNRqvIa8pWjxoMwfEOBNVYNcRQxdHVhZPfiV");

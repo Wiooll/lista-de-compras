@@ -1,9 +1,8 @@
-
-import Parse from '../node_modules/parse/dist/parse.min.js'; // ajuste o caminho conforme necessário
+import Parse from '../node_modules/parse/dist/parse.min.js'; // exemplo se app.js estiver em uma subpasta
 
 // Inicializa o Parse com as credenciais do seu aplicativo Back4App
-Parse.initialize("QjHdnKmTtyV4ZiyXQrWXaN7fNKpxkFpj666ad8YM", "j25PWNRqvIa8pWjxoMwfEOBNVYNcRQxdHVhZPfiV");
-Parse.serverURL = 'https://parseapi.back4app.com/';
+initialize("QjHdnKmTtyV4ZiyXQrWXaN7fNKpxkFpj666ad8YM", "j25PWNRqvIa8pWjxoMwfEOBNVYNcRQxdHVhZPfiV");
+serverURL = 'https://parseapi.back4app.com/';
 
 document.addEventListener('DOMContentLoaded', function() {
   var menuBtn = document.querySelector('.menu-btn');
@@ -163,12 +162,12 @@ function atualizarPrecoSelecionado() {
 // Função para salvar a lista de produtos no Back4App
 function salvarLista() {
   const linhas = document.querySelectorAll('#produtos tbody tr');
-  const Produtos = Parse.Object.extend("_Product");
+  const Produtos = Object.extend("_Product");
 
   // Remover todos os produtos existentes no banco antes de salvar novamente
-  const query = new Parse.Query(Produtos);
+  const query = new Query(Produtos);
   query.find().then((results) => {
-    Parse.Object.destroyAll(results).then(() => {
+    Object.destroyAll(results).then(() => {
       linhas.forEach(linha => {
         const produto = new Produtos();
         produto.set("nome", linha.cells[1].textContent);
@@ -178,19 +177,23 @@ function salvarLista() {
         produto.save();
       });
     });
+  }).catch(error => {
+    console.error("Erro ao buscar produtos: ", error);
   });
 }
 
 // Função para carregar a lista de produtos do Back4App
 function carregarLista() {
-  const Produtos = Parse.Object.extend("_Product");
-  const query = new Parse.Query(Produtos);
+  const Produtos = Object.extend("_Product");
+  const query = new Query(Produtos);
 
   query.find().then((results) => {
     results.forEach((produto) => {
       adicionarProduto(produto.get("nome"), produto.get("quantidade"), produto.get("preco"), produto.get("selecionado"));
     });
     atualizarVisibilidadeElementos();
+  }).catch(error => {
+    console.error("Erro ao carregar produtos: ", error);
   });
 }
 

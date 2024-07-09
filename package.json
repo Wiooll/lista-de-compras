@@ -1,6 +1,7 @@
 {
   "name": "lista-de-compras",
   "version": "1.0.0",
+  "type": "module",
   "description": "🚀 Apresentando meu novo projeto: um web aplicativo de lista de compras! 🛒",
   "main": "index.js",
   "scripts": {

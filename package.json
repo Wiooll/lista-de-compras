@@ -11,6 +11,15 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "parse": "^5.2.0"
-  }
+    "parse": "^5.3.0"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Wiooll/lista-de-compras.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Wiooll/lista-de-compras/issues"
+  },
+  "homepage": "https://github.com/Wiooll/lista-de-compras#readme"
 }

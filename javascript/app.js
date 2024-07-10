@@ -1,4 +1,7 @@
-import Parse from '../node_modules/parse/dist/parse.min.js'; // exemplo se app.js estiver em uma subpasta
+// Definindo a função initialize
+function initialize(QjHdnKmTtyV4ZiyXQrWXaN7fNKpxkFpj666ad8YM, j25PWNRqvIa8pWjxoMwfEOBNVYNcRQxdHVhZPfiV) {
+  Parse.initialize(QjHdnKmTtyV4ZiyXQrWXaN7fNKpxkFpj666ad8YM, j25PWNRqvIa8pWjxoMwfEOBNVYNcRQxdHVhZPfiV);
+  Parse.serverURL = 'https://parseapi.back4app.com/';
 
 // Inicializa o Parse com as credenciais do seu aplicativo Back4App
 initialize("QjHdnKmTtyV4ZiyXQrWXaN7fNKpxkFpj666ad8YM", "j25PWNRqvIa8pWjxoMwfEOBNVYNcRQxdHVhZPfiV");
@@ -216,3 +219,5 @@ function adicionarItensColados() {
 }
 
 document.getElementById('btn-adicionar-colados').addEventListener('click', adicionarItensColados);
+
+}

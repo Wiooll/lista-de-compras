@@ -1,6 +1,6 @@
 // Definindo a função initialize
-function initialize(QjHdnKmTtyV4ZiyXQrWXaN7fNKpxkFpj666ad8YM, j25PWNRqvIa8pWjxoMwfEOBNVYNcRQxdHVhZPfiV) {
-  Parse.initialize(QjHdnKmTtyV4ZiyXQrWXaN7fNKpxkFpj666ad8YM, j25PWNRqvIa8pWjxoMwfEOBNVYNcRQxdHVhZPfiV);
+function initialize(applicationId, javascriptKey) {
+  Parse.initialize(applicationId, javascriptKey);
   Parse.serverURL = 'https://parseapi.back4app.com/';
 }
 
@@ -175,37 +175,36 @@ function salvarLista() {
   // Remover todos os produtos existentes no banco antes de salvar novamente
   const query = new Parse.Query(Produtos);
   query.find().then((results) => {
-    Parse.Object.destroyAll(results).then(() => {
-      linhas.forEach(linha => {
-        const produto = new Produtos();
-        produto.set("nome", linha.cells[1].textContent);
-        produto.set("quantidade", parseFloat(linha.cells[2].querySelector('input').value));
-        produto.set("preco", parseFloat(linha.cells[3].querySelector('input').value));
-        produto.set("selecionado", linha.cells[0].querySelector('input[type="checkbox"]').checked);
+    return Parse.Object.destroyAll(results);
+  }).then(() => {
+    linhas.forEach(linha => {
+      const produto = new Produtos();
+      produto.set("nome", linha.cells[1].textContent);
+      produto.set("quantidade", parseFloat(linha.cells[2].querySelector('input').value));
+      produto.set("preco", parseFloat(linha.cells[3].querySelector('input').value));
+      produto.set("selecionado", linha.cells[0].querySelector('input[type="checkbox"]').checked);
 
-        // Adicione productIdentifier
-        produto.set("productIdentifier", linha.cells[1].textContent); // Ajuste conforme necessário
+      produto.set("productIdentifier", linha.cells[1].textContent);
 
-        // Use um URL público para o ícone
-        const iconUrl = "https://github.com/Wiooll/lista-de-compras/blob/main/img/carrinho.png"; // Substitua pelo URL do seu ícone
-        const iconFile = new Parse.File("default-icon.png", { uri: iconUrl });
+      const iconUrl = "https://github.com/Wiooll/lista-de-compras/blob/main/img/carrinho.png";
+      const iconFile = new Parse.File("default-icon.png", { uri: iconUrl });
+
+      // Salvar o arquivo antes de associá-lo ao produto
+      iconFile.save().then(() => {
         produto.set("icon", iconFile);
 
-        produto.save().then(() => {
-          console.log('Produto salvo com sucesso');
-        }).catch(error => {
-          console.error('Erro ao salvar produto: ', error);
-        });
+        // Salvar o produto
+        return produto.save();
+      }).then(() => {
+        console.log('Produto salvo com sucesso');
+      }).catch(error => {
+        console.error('Erro ao salvar produto: ', error);
       });
     });
   }).catch(error => {
     console.error("Erro ao buscar produtos: ", error);
   });
 }
-
-
-
-
 
 // Função para carregar a lista de produtos do Back4App
 function carregarLista() {

@@ -2,10 +2,10 @@
 function initialize(QjHdnKmTtyV4ZiyXQrWXaN7fNKpxkFpj666ad8YM, j25PWNRqvIa8pWjxoMwfEOBNVYNcRQxdHVhZPfiV) {
   Parse.initialize(QjHdnKmTtyV4ZiyXQrWXaN7fNKpxkFpj666ad8YM, j25PWNRqvIa8pWjxoMwfEOBNVYNcRQxdHVhZPfiV);
   Parse.serverURL = 'https://parseapi.back4app.com/';
+}
 
 // Inicializa o Parse com as credenciais do seu aplicativo Back4App
 initialize("QjHdnKmTtyV4ZiyXQrWXaN7fNKpxkFpj666ad8YM", "j25PWNRqvIa8pWjxoMwfEOBNVYNcRQxdHVhZPfiV");
-serverURL = 'https://parseapi.back4app.com/';
 
 document.addEventListener('DOMContentLoaded', function() {
   var menuBtn = document.querySelector('.menu-btn');
@@ -25,6 +25,11 @@ function adicionarProduto(nomeProduto, quantidade = 1, preco = 0, selecionado = 
   }
 
   const listaProdutos = document.getElementById('produtos').getElementsByTagName('tbody')[0];
+  if (!listaProdutos) {
+    console.error('Elemento tbody não encontrado');
+    return;
+  }
+
   const linhas = listaProdutos.getElementsByTagName('tr');
   for (let i = 0; i < linhas.length; i++) {
     const nomeExistente = linhas[i].getElementsByTagName('td')[1].textContent;
@@ -165,19 +170,32 @@ function atualizarPrecoSelecionado() {
 // Função para salvar a lista de produtos no Back4App
 function salvarLista() {
   const linhas = document.querySelectorAll('#produtos tbody tr');
-  const Produtos = Object.extend("_Product");
+  const Produtos = Parse.Object.extend("_Product");
 
   // Remover todos os produtos existentes no banco antes de salvar novamente
-  const query = new Query(Produtos);
+  const query = new Parse.Query(Produtos);
   query.find().then((results) => {
-    Object.destroyAll(results).then(() => {
+    Parse.Object.destroyAll(results).then(() => {
       linhas.forEach(linha => {
         const produto = new Produtos();
         produto.set("nome", linha.cells[1].textContent);
         produto.set("quantidade", parseFloat(linha.cells[2].querySelector('input').value));
         produto.set("preco", parseFloat(linha.cells[3].querySelector('input').value));
         produto.set("selecionado", linha.cells[0].querySelector('input[type="checkbox"]').checked);
-        produto.save();
+
+        // Adicione productIdentifier
+        produto.set("productIdentifier", linha.cells[1].textContent); // Ajuste conforme necessário
+
+        // Use um URL público para o ícone
+        const iconUrl = "https://github.com/Wiooll/lista-de-compras/blob/main/img/carrinho.png"; // Substitua pelo URL do seu ícone
+        const iconFile = new Parse.File("default-icon.png", { uri: iconUrl });
+        produto.set("icon", iconFile);
+
+        produto.save().then(() => {
+          console.log('Produto salvo com sucesso');
+        }).catch(error => {
+          console.error('Erro ao salvar produto: ', error);
+        });
       });
     });
   }).catch(error => {
@@ -185,10 +203,14 @@ function salvarLista() {
   });
 }
 
+
+
+
+
 // Função para carregar a lista de produtos do Back4App
 function carregarLista() {
-  const Produtos = Object.extend("_Product");
-  const query = new Query(Produtos);
+  const Produtos = Parse.Object.extend("_Product");
+  const query = new Parse.Query(Produtos);
 
   query.find().then((results) => {
     results.forEach((produto) => {
@@ -219,5 +241,3 @@ function adicionarItensColados() {
 }
 
 document.getElementById('btn-adicionar-colados').addEventListener('click', adicionarItensColados);
-
-}

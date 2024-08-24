@@ -164,12 +164,12 @@ th {
 
 th:nth-child(1),
 td:nth-child(1) {
-  width: 50px; /* Largura fixa para a coluna de checkbox */
+  width: 20px; /* Largura fixa para a coluna de checkbox */
 }
 
 th:nth-child(2),
 td:nth-child(2) {
-  width: 150px; /* Largura fixa para a coluna de item */
+  width: 100px; /* Largura fixa para a coluna de item */
 }
 
 th:nth-child(3),
@@ -179,12 +179,12 @@ td:nth-child(3) {
 
 th:nth-child(4),
 td:nth-child(4) {
-  width: 80px; /* Ajustei a largura para a coluna de valor */
+  width: 60px; /* Ajustei a largura para a coluna de valor */
 }
 
 th:nth-child(5),
 td:nth-child(5) {
-  width: 100px; /* Ajustei a largura para a coluna de botão de remover */
+  width: 70px; /* Ajustei a largura para a coluna de botão de remover */
 }
 
 td input[type="number"] {
@@ -265,8 +265,5 @@ td button:hover {
 .btn-remover img {
     width: 20px;
     height: 20px;
-}
-
-#btn-remover-todos {
-  display: none; /* Oculta o botão inicialmente */
+    object-position: center;
 }

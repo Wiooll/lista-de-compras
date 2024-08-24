@@ -1,6 +1,6 @@
 /* Reset básico */
 * {
-  margin: 0;
+  margin: 10;
   padding: 0;
   box-sizing: border-box;
 }
@@ -139,7 +139,7 @@ button i {
 }
 
 button:hover {
-  background-color: #333; /* Cor de fundo do botão ao passar o mouse ajustada para um preto mais claro */
+  background-color: #ff0000; /* Cor de fundo do botão ao passar o mouse ajustada para um preto mais claro */
 }
 
 table {

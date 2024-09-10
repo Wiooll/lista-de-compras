@@ -17,7 +17,6 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 20px;
 }
 
 /* Estilos para o botão de menu */
@@ -154,7 +153,7 @@ th, td {
   text-align: left;
   border: 1px solid #ddd;
   font-size: 0.9rem;
-  word-wrap: break-word; /* Adicionei isso para garantir que o texto seja quebrado */
+  /*word-wrap: break-word;  Adicionei isso para garantir que o texto seja quebrado */
 }
 
 th {
@@ -164,7 +163,7 @@ th {
 
 th:nth-child(1),
 td:nth-child(1) {
-  width: 20px; /* Largura fixa para a coluna de checkbox */
+  width: 30px; /* Largura fixa para a coluna de checkbox */
 }
 
 th:nth-child(2),
@@ -184,7 +183,7 @@ td:nth-child(4) {
 
 th:nth-child(5),
 td:nth-child(5) {
-  width: 70px; /* Ajustei a largura para a coluna de botão de remover */
+  width: 90px; /* Ajustei a largura para a coluna de botão de remover */
 }
 
 td input[type="number"] {
@@ -267,7 +266,7 @@ td button:hover {
 }
 
 .btn-remover img {
-    width: 20px;
-    height: 20px;
+    width: 25px;
+    height: 25px;
     object-position: center;
 }

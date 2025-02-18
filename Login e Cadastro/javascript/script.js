@@ -10,7 +10,7 @@ document.getElementById('login-form').addEventListener('submit', function(event)
   // Suponha que a autenticação seja bem-sucedida
   // Redireciona para a página principal
   if (username === 'Wiooll' && password === '1234') { // Exemplo de validação
-    window.location.href = 'home.html'; // Substitua pelo caminho da sua página principal
+    window.location.href = '/index.html'; // Substitua pelo caminho da sua página principal
   } else {
     alert('Nome de usuário ou senha incorretos');
   }

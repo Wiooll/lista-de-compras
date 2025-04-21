@@ -3,47 +3,220 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>LISTA DE COMPRAS</title>
+  <title>ListaÊ - Lista de Compras</title>
   <link rel="icon" href="img/carrinho.png">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
   <header class="header">
-    <h1><i class="fas fa-shopping-cart"></i> ListaÊ</h1>
+    <h1>
+      <i class="fas fa-shopping-cart"></i>
+      ListaÊ
+      <span class="subtitle">Sua Lista de Compras</span>
+    </h1>
   </header>
-<br>
-<br>
-<br>
-  <div class="container">
-    <table id="produtos" class="hidden" >
-      <thead>
-        <tr>
-          <th>✓</th>
-          <th>ITEM</th>
-          <th>QTD</th>
-          <th>VALOR</th>
-          <th>REMOVER</th>
-        </tr>
-      </thead>
-      <tbody>
-        <!-- Produtos serão adicionados aqui -->
-      </tbody>
-    </table>
+
+  <main class="container">
     <div class="input-section">
-      <textarea id="itens-colados" placeholder="Adicione ou cole aqui os itens da sua lista de compras (um por linha)"></textarea>
-      <button id="btn-adicionar-colados"><i class="fa-solid fa-circle-up"></i> ADICIONAR</button>
+      <textarea id="itens-colados" placeholder="Adicione itens um por linha. Formatos aceitos:
+- 2 Arroz R$ 10,90
+- Arroz - 2 un - R$ 10,90
+- Arroz R$ 10,90
+- Arroz"></textarea>
+      <button id="btn-adicionar-colados">
+        <i class="fas fa-plus-circle"></i>
+        Adicionar Itens
+      </button>
     </div>
-    <div class="totals hidden" style="display: flex;">
-      <div>Total: R$ <span id="preco-total">0.00</span></div>
-      <div style="text-align: right;">Selecionados: R$ <span id="preco-selecionado">0.00</span></div>
+
+    <div class="table-container">
+      <table id="produtos" class="hidden">
+        <thead>
+          <tr>
+            <th>
+              <i class="fas fa-check-square" title="Marcar item"></i>
+            </th>
+            <th>
+              <div class="th-content">
+                <span>Item</span>
+                <button class="btn-ordenar" onclick="ordenarLista('nome')" title="Ordenar por nome">
+                  <i class="fas fa-sort"></i>
+                </button>
+              </div>
+            </th>
+            <th>
+              <div class="th-content">
+                <span>Qtd</span>
+                <button class="btn-ordenar" onclick="ordenarLista('quantidade')" title="Ordenar por quantidade">
+                  <i class="fas fa-sort"></i>
+                </button>
+              </div>
+            </th>
+            <th>
+              <div class="th-content">
+                <span>Valor</span>
+                <button class="btn-ordenar" onclick="ordenarLista('preco')" title="Ordenar por preço">
+                  <i class="fas fa-sort"></i>
+                </button>
+              </div>
+            </th>
+            <th>
+              <i class="fas fa-trash-alt" title="Remover item"></i>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Produtos serão adicionados aqui -->
+        </tbody>
+      </table>
+
+      <div class="totals hidden">
+        <div class="total-item">
+          <i class="fas fa-shopping-basket"></i>
+          Total: R$ <span id="preco-total">0.00</span>
+        </div>
+        <div class="total-item">
+          <i class="fas fa-check-circle"></i>
+          Selecionados: R$ <span id="preco-selecionado">0.00</span>
+        </div>
+      </div>
+
+      <button id="btn-remover-todos" class="hidden">
+        <i class="fas fa-trash"></i>
+        Remover Todos os Itens
+      </button>
     </div>
-    <button id="btn-remover-todos" class="hidden" onclick="removerTodosProdutos()"><i class="fas fa-trash-alt"></i> Remover Tudo</button>
+  </main>
+
+  <!-- Menu flutuante -->
+  <nav class="floating-menu">
+    <button class="menu-item" onclick="toggleListas()">
+      <i class="fas fa-list"></i>
+      <span>Minhas Listas</span>
+    </button>
+    <button class="menu-item" onclick="compartilharLista()">
+      <i class="fas fa-share-alt"></i>
+      <span>Compartilhar</span>
+    </button>
+    <button class="menu-item active" onclick="mostrarPrincipal()">
+      <i class="fas fa-home"></i>
+      <span>Principal</span>
+    </button>
+    <button class="menu-item" onclick="toggleConfiguracoes()">
+      <i class="fas fa-cog"></i>
+      <span>Configurações</span>
+    </button>
+    <button class="menu-item" onclick="toggleEstatisticas()">
+      <i class="fas fa-chart-bar"></i>
+      <span>Estatísticas</span>
+    </button>
+  </nav>
+
+  <!-- Modal de Listas -->
+  <div id="modal-listas" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2><i class="fas fa-list"></i> Minhas Listas</h2>
+        <button class="btn-fechar" onclick="toggleListas()">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="lista-acoes">
+          <input type="text" id="nova-lista" placeholder="Nome da nova lista">
+          <button onclick="criarNovaLista()">
+            <i class="fas fa-plus"></i> Criar Lista
+          </button>
+        </div>
+        <div id="listas-salvas">
+          <!-- Listas serão adicionadas aqui -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal de Configurações -->
+  <div id="modal-configuracoes" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2><i class="fas fa-cog"></i> Configurações</h2>
+        <button class="btn-fechar" onclick="toggleConfiguracoes()">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="config-item">
+          <label>Tema</label>
+          <select id="tema" onchange="mudarTema()">
+            <option value="claro">Claro</option>
+            <option value="escuro">Escuro</option>
+            <option value="sistema">Sistema</option>
+          </select>
+        </div>
+        <div class="config-item">
+          <label>Moeda</label>
+          <select id="moeda" onchange="mudarMoeda()">
+            <option value="BRL">Real (R$)</option>
+            <option value="USD">Dólar ($)</option>
+            <option value="EUR">Euro (€)</option>
+          </select>
+        </div>
+        <div class="config-item">
+          <label>Ordenação Padrão</label>
+          <select id="ordenacao-padrao" onchange="mudarOrdenacaoPadrao()">
+            <option value="nome">Nome</option>
+            <option value="preco">Preço</option>
+            <option value="quantidade">Quantidade</option>
+          </select>
+        </div>
+        <div class="config-item">
+          <label>
+            <input type="checkbox" id="salvar-automatico" onchange="toggleSalvarAutomatico()">
+            Salvar automaticamente
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal de Estatísticas -->
+  <div id="modal-estatisticas" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2><i class="fas fa-chart-bar"></i> Estatísticas</h2>
+        <button class="btn-fechar" onclick="toggleEstatisticas()">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="estatisticas-grid">
+          <div class="stat-card">
+            <h3>Total Gasto</h3>
+            <div id="total-gasto">R$ 0,00</div>
+          </div>
+          <div class="stat-card">
+            <h3>Itens Mais Comprados</h3>
+            <div id="itens-frequentes"></div>
+          </div>
+          <div class="stat-card">
+            <h3>Média por Lista</h3>
+            <div id="media-lista">R$ 0,00</div>
+          </div>
+          <div class="stat-card">
+            <h3>Histórico Mensal</h3>
+            <canvas id="grafico-mensal"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
   <footer class="footer">
     <p>&copy; 2024 ListaÊ. Todos os direitos reservados.</p>
-    <p>Desenvolvido por: <a href="https://github.com/Wiooll" target="_blank">Willian Sousa</a></p>
+    <p>Desenvolvido por: <a href="https://github.com/Wiooll" target="_blank">
+      <i class="fab fa-github"></i> Willian Sousa
+    </a></p>
   </footer>
 
   <script src="javascript/app.js"></script>

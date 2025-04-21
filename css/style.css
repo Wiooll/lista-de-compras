@@ -1,22 +1,24 @@
 /* Reset básico */
 * {
-  margin: 10;
+  margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
 body {
-  background-image: url('img/carrinho.png'); /* Corrigida a barra invertida */
+  background-image: url('img/carrinho.png');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   background-attachment: fixed;
   font-family: 'Arial', sans-serif;
-  background-color: #a5a5a5;
+  background-color: #f5f5f5;
   color: #333;
   display: flex;
   flex-direction: column;
   align-items: center;
+  min-height: 100vh;
+  padding: 20px;
 }
 
 /* Estilos para o botão de menu */
@@ -78,24 +80,32 @@ body {
 }
 
 .header {
-  margin-bottom: 20px;
+  margin-bottom: 30px;
   text-align: center;
+  width: 100%;
+  padding: 20px;
+  background-color: rgba(255, 255, 255, 0.95);
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .header h1 {
-  font-size: 2rem;
-  color: #000; /* Cor do título ajustada para preto */
+  font-size: 2.5rem;
+  color: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
 }
 
 .container {
   width: 100%;
-  max-width: 600px;
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  padding: 20px;
-  overflow-x: auto; /* Adicionei isso para garantir que a tabela não ultrapasse a largura do contêiner */
-  border-top: 3px solid black; /* Adicione esta linha para definir a cor da barra acima da tabela para preto */
+  max-width: 800px;
+  background-color: rgba(255, 255, 255, 0.95);
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 25px;
+  margin-bottom: 30px;
 }
 
 .hidden {
@@ -103,189 +113,608 @@ body {
 }
 
 .input-section {
-  margin-bottom: 20px;
+  margin-bottom: 25px;
   display: flex;
   flex-direction: column;
-  align-items: stretch;
+  gap: 15px;
 }
 
 textarea {
   width: 100%;
-  height: 50px;
-  padding: 10px;
-  border-radius: 5px;
-  border: 1px solid #ddd;
-  margin-bottom: 10px;
-  resize: none;
+  height: 100px;
+  padding: 15px;
+  border-radius: 8px;
+  border: 2px solid #ddd;
+  margin-bottom: 0;
+  resize: vertical;
   font-family: 'Arial', sans-serif;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
 }
 
+textarea:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+/* Estilo base para botões */
 button {
-  padding: 20px 20px;
-  background-color: #000; /* Cor do botão de adicionar item ajustada para preto */
-  color: white;
+  padding: 12px 20px;
   border: none;
-  border-radius: 5px;
+  border-radius: 8px;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 1rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  gap: 8px;
 }
 
-button i {
-  margin-right: 5px;
-}
-
-button:hover {
-  background-color: #ff0000; /* Cor de fundo do botão ao passar o mouse ajustada para um preto mais claro */
-}
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-bottom: 20px;
-  table-layout: fixed; /* Adicionei isso para definir um layout de tabela fixo */
-}
-
-th, td {
-  padding: 10px;
-  text-align: left;
-  border: 1px solid #ddd;
-  font-size: 0.9rem;
-  /*word-wrap: break-word;  Adicionei isso para garantir que o texto seja quebrado */
-}
-
-th {
-  background-color: #807e7e; /* Cor de fundo do cabeçalho da tabela ajustada para preto */
-  color: white; /* Cor do texto do cabeçalho da tabela ajustada para branco */
-}
-
-th:nth-child(1),
-td:nth-child(1) {
-  width: 30px; /* Largura fixa para a coluna de checkbox */
-}
-
-th:nth-child(2),
-td:nth-child(2) {
-  width: 100px; /* Largura fixa para a coluna de item */
-}
-
-th:nth-child(3),
-td:nth-child(3) {
-  width: 60px; /* Ajustei a largura para a coluna de quantidade */
-}
-
-th:nth-child(4),
-td:nth-child(4) {
-  width: 60px; /* Ajustei a largura para a coluna de valor */
-}
-
-th:nth-child(5),
-td:nth-child(5) {
-  width: 90px; /* Ajustei a largura para a coluna de botão de remover */
-}
-
-td input[type="number"] {
-  width: 100%; /* Ajuste de largura para os inputs de número */
-  padding: 5px;
-  box-sizing: border-box;
-}
-
-td button {
-  padding: 5px 10px;
-  background-color: #dc3545; /* Cor dos botões de remover ajustada para vermelho */
+/* Botão principal (adicionar) */
+#btn-adicionar-colados {
+  background-color: #28a745;
   color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 0.9rem;
 }
 
-td button:hover {
-  background-color: #c82333; /* Cor dos botões de remover ao passar o mouse ajustada para um vermelho mais escuro */
+#btn-adicionar-colados:hover {
+  background-color: #218838;
+  transform: translateY(-1px);
 }
 
+/* Botão remover todos */
 #btn-remover-todos {
-  background-color: #dc3545; /* Cor do botão de remover todos os itens ajustada para vermelho */
+  background-color: #dc3545;
+  color: white;
+  margin-top: 20px;
 }
 
 #btn-remover-todos:hover {
-  background-color: #c82333; /* Cor do botão de remover todos os itens ao passar o mouse ajustada para um vermelho mais escuro */
+  background-color: #c82333;
+  transform: translateY(-1px);
 }
 
-.totals {
-  display: inline-flex;
-  justify-content: space-between;
-  margin-bottom: 20px;
-  font-size: 1.2rem;
-  font-weight: bold;
-  color: #333;
-  flex-shrink: 0;
-  flex-basis: auto;
-  flex-grow: 0;
-  align-self: flex-start;
-  width: 100%;
-  position: relative;
-  bottom: 0;
-  left: 0;
-  right: 0;
-}
-
-.footer {
-  text-align: center;
-  margin-top: 20px;
-  font-size: 0.8rem;
-  color: #666;
-  margin-bottom: 10px;
-  flex-shrink: 0;
-  flex-basis: auto;
-  flex-grow: 0;
-  align-self: flex-end;
-  width: 100%;
-  position: relative;
-  bottom: 0;
-  left: 0;
-  right: 0; 
-}
-
-@media (max-width: 600px) {
-  .totals {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .totals div {
-    margin-bottom: 10px;
-  }
-
-  button {
-    width: 100%;
-  }
-
-  th, td {
-    padding: 5px;
-  }
-
-  th:nth-child(2),
-  td:nth-child(2) {
-    width: auto; /* Ajusta a largura automaticamente em telas menores */
-  }
-}
-
-.remove-icon {
-    width: 20px; /* Ajuste o tamanho conforme necessário */
-    height: 20px;
-}
-
+/* Botões de remover individual */
 .btn-remover {
-    background: none; /* Remove o fundo do botão */
-    border: none;     /* Remove a borda do botão */
-    cursor: pointer;  /* Cursor de ponteiro ao passar sobre o botão */
+  background-color: transparent;
+  padding: 8px;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+.btn-remover:hover {
+  background-color: rgba(220, 53, 69, 0.1);
 }
 
 .btn-remover img {
-    width: 25px;
-    height: 25px;
-    object-position: center;
+  width: 20px;
+  height: 20px;
+  transition: transform 0.3s ease;
+}
+
+.btn-remover:hover img {
+  transform: scale(1.1);
+}
+
+/* Tabela */
+table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin-bottom: 20px;
+  background-color: white;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+th {
+  background-color: #f8f9fa;
+  color: #495057;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  padding: 15px;
+  border-bottom: 2px solid #dee2e6;
+}
+
+td {
+  padding: 12px 15px;
+  border-bottom: 1px solid #dee2e6;
+  vertical-align: middle;
+}
+
+tr:last-child td {
+  border-bottom: none;
+}
+
+/* Inputs na tabela */
+td input[type="number"] {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+}
+
+td input[type="number"]:focus {
+  border-color: #007bff;
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(0,123,255,0.25);
+}
+
+/* Totais */
+.totals {
+  background-color: #f8f9fa;
+  padding: 20px;
+  border-radius: 8px;
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.1rem;
+  font-weight: 600;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+/* Checkbox personalizado */
+.checkbox {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .container {
+    padding: 15px;
+    margin: 10px;
+  }
+
+  .header h1 {
+    font-size: 2rem;
+  }
+
+  .totals {
+    flex-direction: column;
+    gap: 10px;
+    text-align: center;
+  }
+
+  th, td {
+    padding: 10px;
+    font-size: 0.9rem;
+  }
+
+  button {
+    padding: 10px 15px;
+  }
+
+  textarea {
+    height: 80px;
+  }
+}
+
+/* Notificações */
+.notificacao {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  padding: 15px 25px;
+  border-radius: 8px;
+  color: white;
+  font-weight: 600;
+  z-index: 1000;
+  animation: slideIn 0.5s ease-out;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.notificacao.sucesso {
+  background-color: #28a745;
+}
+
+.notificacao.erro {
+  background-color: #dc3545;
+}
+
+/* Footer */
+.footer {
+  text-align: center;
+  padding: 20px;
+  background-color: rgba(255, 255, 255, 0.95);
+  border-radius: 8px;
+  width: 100%;
+  max-width: 800px;
+  margin-top: auto;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.footer a {
+  color: #007bff;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+.footer a:hover {
+  color: #0056b3;
+}
+
+/* Melhorias na acessibilidade */
+button:focus,
+input:focus,
+textarea:focus {
+  outline: 2px solid #007bff;
+  outline-offset: 2px;
+}
+
+/* Animação para itens da lista */
+#produtos tbody tr {
+  transition: background-color 0.3s ease;
+}
+
+#produtos tbody tr:hover {
+  background-color: #f8f9fa;
+}
+
+/* Melhorias visuais nos inputs */
+input[type="number"] {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 8px;
+  transition: border-color 0.3s ease;
+}
+
+input[type="number"]:hover {
+  border-color: #007bff;
+}
+
+/* Estilos para botões de ordenação */
+.btn-ordenar {
+  background: none;
+  border: none;
+  color: white;
+  padding: 0;
+  margin-left: 5px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  opacity: 0.7;
+  transition: opacity 0.3s ease;
+}
+
+.btn-ordenar:hover {
+  opacity: 1;
+  background: none;
+}
+
+.btn-ordenar i {
+  margin: 0;
+}
+
+/* Estilos para o subtítulo do header */
+.subtitle {
+  font-size: 1rem;
+  font-weight: normal;
+  color: #666;
+  margin-left: 10px;
+}
+
+/* Conteúdo do cabeçalho da tabela */
+.th-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+/* Ícones nos totais */
+.total-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.total-item i {
+  font-size: 1.2rem;
+  color: #495057;
+}
+
+/* Container da tabela */
+.table-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Animação para linhas da tabela */
+#produtos tbody tr {
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Hover na linha da tabela */
+#produtos tbody tr:hover {
+  background-color: #f8f9fa;
+  transition: background-color 0.3s ease;
+}
+
+/* Estilo para células da tabela */
+td {
+  transition: all 0.3s ease;
+}
+
+/* Estilo para inputs de número */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Melhorias no checkbox */
+.checkbox {
+  accent-color: #28a745;
+}
+
+/* Estilo para placeholder do textarea */
+textarea::placeholder {
+  color: #6c757d;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+/* Menu Flutuante */
+.floating-menu {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(255, 255, 255, 0.95);
+  padding: 10px 20px;
+  border-radius: 50px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  display: flex;
+  gap: 15px;
+  z-index: 1000;
+  backdrop-filter: blur(10px);
+}
+
+.menu-item {
+  background: none;
+  border: none;
+  padding: 10px;
+  border-radius: 50%;
+  color: #495057;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  transition: all 0.3s ease;
+  font-size: 0.8rem;
+}
+
+.menu-item i {
+  font-size: 1.2rem;
+  margin-bottom: 2px;
+}
+
+.menu-item span {
+  display: none;
+}
+
+.menu-item:hover {
+  background-color: #f8f9fa;
+  transform: translateY(-2px);
+}
+
+.menu-item.active {
+  color: #007bff;
+}
+
+/* Modal */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1100;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.modal.show {
+  display: flex;
+  opacity: 1;
+}
+
+.modal-content {
+  background-color: white;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 500px;
+  margin: auto;
+  position: relative;
+  transform: translateY(20px);
+  transition: transform 0.3s ease;
+  overflow: hidden;
+}
+
+.modal.show .modal-content {
+  transform: translateY(0);
+}
+
+.modal-header {
+  padding: 20px;
+  border-bottom: 1px solid #dee2e6;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-header h2 {
+  margin: 0;
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.modal-body {
+  padding: 20px;
+  max-height: 70vh;
+  overflow-y: auto;
+}
+
+.btn-fechar {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: #6c757d;
+  cursor: pointer;
+  padding: 5px;
+}
+
+/* Estilos para configurações */
+.config-item {
+  margin-bottom: 20px;
+}
+
+.config-item label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+.config-item select {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #dee2e6;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+/* Estilos para estatísticas */
+.estatisticas-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.stat-card {
+  background-color: #f8f9fa;
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.stat-card h3 {
+  margin: 0 0 10px 0;
+  font-size: 1rem;
+  color: #495057;
+}
+
+.stat-card div {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #007bff;
+}
+
+/* Lista de listas salvas */
+.lista-acoes {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.lista-acoes input {
+  flex: 1;
+  padding: 8px;
+  border: 1px solid #dee2e6;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+#listas-salvas {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.lista-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background-color: #f8f9fa;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+.lista-item:hover {
+  background-color: #e9ecef;
+}
+
+.lista-item-acoes {
+  display: flex;
+  gap: 10px;
+}
+
+/* Responsividade */
+@media (min-width: 768px) {
+  .menu-item span {
+    display: block;
+  }
+
+  .floating-menu {
+    padding: 10px 30px;
+  }
+
+  .menu-item {
+    padding: 10px 20px;
+    border-radius: 8px;
+    flex-direction: row;
+  }
+
+  .menu-item i {
+    margin-bottom: 0;
+    margin-right: 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .floating-menu {
+    bottom: 0;
+    width: 100%;
+    border-radius: 0;
+    justify-content: space-around;
+  }
+
+  .modal-content {
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+  }
+
+  .estatisticas-grid {
+    grid-template-columns: 1fr;
+  }
 }

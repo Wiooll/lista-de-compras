@@ -1,36 +1,49 @@
-🚀 Apresentando meu novo projeto: um web aplicativo de lista de compras! 🛒
+# 🛒 ListaÊ - Lista de Compras Inteligente
 
-Estou animado em compartilhar o desenvolvimento do meu mais recente projeto, um web aplicativo projetado para facilitar e otimizar suas compras diárias.
+**ListaÊ** é um aplicativo web moderno e interativo para organizar suas listas de compras de forma prática, visual e eficiente.
 
-📋 Funcionalidades do Aplicativo:
+## 🔥 Funcionalidades
 
-Adição de Itens: Adicione facilmente os itens que você precisa comprar, com a possibilidade de especificar a quantidade desejada.
+- ✅ Adição rápida de itens com nome, quantidade e valor
+- 📋 Entrada por texto colado em múltiplos formatos
+- 🧠 Detecção automática de itens duplicados
+- ✍️ Edição dinâmica de quantidade e preço diretamente na tabela
+- 🗑️ Remoção individual ou em massa de itens
+- 📊 Totais atualizados em tempo real (total e selecionado)
+- 📥 Salvamento automático no **Local Storage**
+- 💾 Suporte a múltiplas listas salvas
+- 🚀 Compartilhamento de lista por `clipboard` ou `Web Share API`
+- 📈 Painel de estatísticas com:
+  - Total gasto
+  - Itens mais comprados
+  - Média por lista
+- ⚙️ Configurações personalizáveis:
+  - Tema (claro, escuro, sistema)
+  - Moeda (BRL, USD, EUR)
+  - Ordenação padrão
+  - Salvamento automático
+- 📱 Design responsivo para celular e desktop
 
-Valores e Cálculos Automáticos: Insira o valor de cada item e tenha a soma total calculada automaticamente.
+## 🛠️ Tecnologias utilizadas
 
-Seleção de Itens: Selecione os itens conforme os adiciona ao carrinho e veja a soma dos itens selecionados em tempo real.
+- HTML5 + CSS3 + JavaScript puro
+- FontAwesome para ícones
+- LocalStorage para persistência local
 
-Interface Intuitiva: Uma interface amigável e fácil de usar para que qualquer pessoa possa aproveitar os benefícios do aplicativo sem complicações.
+## 🖼️ Captura de tela
 
-💡 Por que você vai adorar este aplicativo:
+> Em breve...
 
-Organização: Mantenha suas listas de compras organizadas e acessíveis a qualquer momento. (Em desenvolvimento)
+## 📦 Como usar
 
-Eficiência: Economize tempo ao ver instantaneamente o total da sua compra e ajuste suas compras de acordo com o seu orçamento.
+1. Clone o repositório ou baixe os arquivos
+2. Abra `index.html` no navegador
+3. Comece a usar: cole os itens ou adicione manualmente
 
-Simplicidade: Com uma interface simples e intuitiva, adicionar e gerenciar seus itens de compra nunca foi tão fácil.
+## 👨‍💻 Desenvolvido por
 
-📱 Quem pode se beneficiar:
+- Willian Sousa  
+  [![GitHub](https://img.shields.io/badge/GitHub-Wiooll-000?logo=github)](https://github.com/Wiooll)
 
-Famílias: Simplifique as compras semanais de alimentos e mantenha o controle do orçamento.
+---
 
-Estudantes: Gerencie suas compras mensais com facilidade e eficiência.
-Qualquer Pessoa: Todos que procuram uma maneira prática de organizar suas compras e evitar surpresas no caixa.
-
-Estou empolgado para trazer essa ferramenta útil para todos vocês e ouvir seu feedback. Fique atento para mais atualizações e o lançamento oficial!
-
-🔗 Mantenha-se Conectado:
-
-Fique ligado para mais informações sobre o lançamento e como você pode começar a usar o aplicativo. Seu feedback será essencial para aprimorar ainda mais este projeto.
-
-Obrigado pelo seu apoio! 🙌

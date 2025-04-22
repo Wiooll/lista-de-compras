@@ -127,6 +127,10 @@
       <i class="fas fa-chart-bar"></i>
       <span>Estatísticas</span>
     </button>
+    <button class="menu-item" onclick="toggleSobre()">
+      <i class="fas fa-info-circle"></i>
+      <span>Sobre</span>
+    </button>
   </nav>
 
   <!-- Modal de Listas -->
@@ -252,12 +256,30 @@
     </div>
   </div>
 
-  <footer class="footer">
-    <p>&copy; 2024 ListaÊ. Todos os direitos reservados.</p>
-    <p>Desenvolvido por: <a href="https://github.com/Wiooll" target="_blank">
-      <i class="fab fa-github"></i> Willian Sousa
-    </a></p>
-  </footer>
+  <!-- Modal Sobre -->
+  <div id="modal-sobre" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2><i class="fas fa-info-circle"></i> Sobre</h2>
+        <button class="btn-fechar" onclick="toggleSobre()">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="sobre-content">
+          <p>&copy; 2024 ListaÊ. Todos os direitos reservados.</p>
+          <p>Desenvolvido por: <a href="https://github.com/Wiooll" target="_blank">
+            <i class="fab fa-github"></i> Willian Sousa
+          </a></p>
+          <div class="app-info">
+            <h3>Sobre o ListaÊ</h3>
+            <p>O ListaÊ é um aplicativo de lista de compras simples, rápido e intuitivo, projetado para facilitar sua experiência de compras.</p>
+            <p>Versão: 1.0.0</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <script src="javascript/app.js"></script>
   <script src="javascript/pwa.js"></script>

@@ -380,6 +380,11 @@ function toggleEstatisticas() {
   atualizarEstatisticas();
 }
 
+// Função para controlar a exibição do modal Sobre
+function toggleSobre() {
+  document.getElementById('modal-sobre').classList.toggle('show');
+}
+
 function mostrarPrincipal() {
   const modais = document.querySelectorAll('.modal');
   modais.forEach(modal => modal.classList.remove('show'));

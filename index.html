@@ -7,6 +7,16 @@
   <link rel="icon" href="img/carrinho.png">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <link rel="stylesheet" href="css/style.css">
+  
+  <!-- PWA: Adicionando referências ao manifest e tags para melhor funcionamento como PWA -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#4CAF50">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="ListaÊ">
+  <link rel="apple-touch-icon" href="img/icon-192x192.png">
+  <meta name="description" content="Aplicativo de lista de compras simples, rápido e intuitivo.">
+  
 </head>
 <body>
   <header class="header">
@@ -88,6 +98,12 @@
       </button>
     </div>
   </main>
+
+  <!-- Indicador de status online/offline -->
+  <div id="status-indicator" class="status-indicator status-online">
+    <i class="fas fa-wifi"></i>
+    <span id="status-text">Online</span>
+  </div>
 
   <!-- Menu flutuante -->
   <nav class="floating-menu">
@@ -176,6 +192,12 @@
             Salvar automaticamente
           </label>
         </div>
+        <div class="config-item">
+          <label>
+            <input type="checkbox" id="modo-offline" checked disabled>
+            Funciona offline (PWA)
+          </label>
+        </div>
       </div>
     </div>
   </div>
@@ -212,6 +234,24 @@
     </div>
   </div>
 
+  <!-- Modal de instalação do PWA -->
+  <div id="modal-instalar" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2><i class="fas fa-download"></i> Instalar Aplicativo</h2>
+        <button class="btn-fechar" onclick="fecharModalInstalar()">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Instale o ListaÊ em seu dispositivo para acessar mesmo sem internet e ter uma melhor experiência!</p>
+        <button id="btn-instalar" class="btn-instalar">
+          <i class="fas fa-download"></i> Instalar Agora
+        </button>
+      </div>
+    </div>
+  </div>
+
   <footer class="footer">
     <p>&copy; 2024 ListaÊ. Todos os direitos reservados.</p>
     <p>Desenvolvido por: <a href="https://github.com/Wiooll" target="_blank">
@@ -220,5 +260,63 @@
   </footer>
 
   <script src="javascript/app.js"></script>
+  <script src="javascript/pwa.js"></script>
+  
+  <!-- Script para registro do Service Worker -->
+  <script>
+    // Registrar o Service Worker após o carregamento da página
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./service-worker.js')
+          .then(registration => {
+            console.log('Service Worker registrado com sucesso:', registration);
+          })
+          .catch(error => {
+            console.log('Falha ao registrar o Service Worker:', error);
+          });
+      });
+    }
+    
+    // Variáveis para controle da instalação do PWA
+    let deferredPrompt;
+    const btnInstalar = document.getElementById('btn-instalar');
+    const modalInstalar = document.getElementById('modal-instalar');
+    
+    // Interceptar o evento 'beforeinstallprompt'
+    window.addEventListener('beforeinstallprompt', (e) => {
+      // Impedir que o Chrome mostre o prompt automaticamente
+      e.preventDefault();
+      // Guardar o evento para poder disparar mais tarde
+      deferredPrompt = e;
+      // Mostrar o modal de instalação
+      modalInstalar.style.display = 'block';
+    });
+    
+    // Função para fechar o modal de instalação
+    function fecharModalInstalar() {
+      modalInstalar.style.display = 'none';
+    }
+    
+    // Adicionar evento de clique no botão de instalação
+    btnInstalar.addEventListener('click', async () => {
+      if (deferredPrompt) {
+        // Mostrar o prompt de instalação
+        deferredPrompt.prompt();
+        // Aguardar a resposta do usuário
+        const { outcome } = await deferredPrompt.userChoice;
+        console.log(`Resultado da instalação: ${outcome}`);
+        // Limpar a variável, pois só pode ser usada uma vez
+        deferredPrompt = null;
+        // Fechar o modal
+        fecharModalInstalar();
+      }
+    });
+    
+    // Verificar se o aplicativo já está instalado
+    window.addEventListener('appinstalled', (e) => {
+      console.log('Aplicativo instalado!');
+      fecharModalInstalar();
+    });
+  </script>
 </body>
 </html>

@@ -718,3 +718,97 @@ textarea::placeholder {
     grid-template-columns: 1fr;
   }
 }
+
+/* Estilos para o PWA */
+.btn-instalar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 12px 20px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin: 20px auto;
+  width: 100%;
+  max-width: 250px;
+}
+
+.btn-instalar:hover {
+  background-color: #388E3C;
+}
+
+.btn-instalar i {
+  margin-right: 8px;
+}
+
+/* Estilos para indicador de status offline/online */
+.status-indicator {
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  opacity: 0.9;
+  transition: transform 0.3s, opacity 0.3s;
+}
+
+.status-online {
+  background-color: #388E3C;
+  color: white;
+}
+
+.status-offline {
+  background-color: #F57C00;
+  color: white;
+}
+
+.status-indicator i {
+  margin-right: 5px;
+}
+
+.status-indicator.hidden {
+  transform: translateY(100px);
+  opacity: 0;
+}
+
+/* Estilos para notificações específicas do PWA */
+.notificacao.info {
+  background-color: #2196F3;
+  color: white;
+}
+
+.notificacao.aviso {
+  background-color: #FF9800;
+  color: white;
+}
+
+/* Modificações para quando o app estiver instalado como PWA */
+@media all and (display-mode: standalone) {
+  /* Removemos o footer quando estiver no modo standalone */
+  .footer {
+    display: none;
+  }
+  
+  /* Aumentamos o padding inferior para compensar a falta do footer */
+  body {
+    padding-bottom: 70px;
+  }
+  
+  /* Garantimos que o menu não seja cortado em dispositivos com notch */
+  .floating-menu {
+    padding-bottom: env(safe-area-inset-bottom, 0);
+  }
+  
+  /* Ajustamos o header para dispositivos com notch */
+  .header {
+    padding-top: env(safe-area-inset-top, 20px);
+  }
+}

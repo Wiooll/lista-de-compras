@@ -390,10 +390,35 @@ function mostrarPrincipal() {
   modais.forEach(modal => modal.classList.remove('show'));
 }
 
-// Funções de configuração
+// Função para mudar o tema
 function mudarTema() {
-  configuracoes.tema = document.getElementById('tema').value;
-  document.body.className = configuracoes.tema;
+  const tema = document.getElementById('tema').value;
+  configuracoes.tema = tema;
+  
+  if (tema === 'sistema') {
+    // Verifica se o sistema está em modo escuro
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      document.documentElement.setAttribute('data-theme', 'escuro');
+    } else {
+      document.documentElement.removeAttribute('data-theme');
+    }
+    
+    // Adiciona listener para mudanças na preferência do sistema
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+      if (configuracoes.tema === 'sistema') {
+        if (e.matches) {
+          document.documentElement.setAttribute('data-theme', 'escuro');
+        } else {
+          document.documentElement.removeAttribute('data-theme');
+        }
+      }
+    });
+  } else if (tema === 'escuro') {
+    document.documentElement.setAttribute('data-theme', 'escuro');
+  } else {
+    document.documentElement.removeAttribute('data-theme');
+  }
+  
   salvarConfiguracoes();
 }
 

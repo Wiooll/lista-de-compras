@@ -5,6 +5,59 @@
   box-sizing: border-box;
 }
 
+/* Variáveis de tema */
+:root {
+  /* Tema claro (padrão) */
+  --bg-color: #f5f5f5;
+  --text-color: #333;
+  --header-bg: rgba(255, 255, 255, 0.95);
+  --container-bg: rgba(255, 255, 255, 0.95);
+  --input-border: #ddd;
+  --input-bg: white;
+  --btn-primary-bg: #28a745;
+  --btn-primary-color: white;
+  --btn-danger-bg: #dc3545;
+  --btn-danger-color: white;
+  --table-header-bg: #f8f9fa;
+  --table-header-color: #495057;
+  --table-border: #dee2e6;
+  --table-hover: #f8f9fa;
+  --modal-bg: white;
+  --modal-overlay: rgba(0, 0, 0, 0.5);
+  --shadow-color: rgba(0, 0, 0, 0.1);
+  --menu-bg: rgba(255, 255, 255, 0.95);
+  --menu-color: #495057;
+  --menu-hover: #f8f9fa;
+  --link-color: #007bff;
+  --link-hover: #0056b3;
+}
+
+/* Tema escuro */
+[data-theme="escuro"] {
+  --bg-color: #1a1a1a;
+  --text-color: #e0e0e0;
+  --header-bg: rgba(32, 32, 32, 0.95);
+  --container-bg: rgba(32, 32, 32, 0.95);
+  --input-border: #404040;
+  --input-bg: #2d2d2d;
+  --btn-primary-bg: #2ea043;
+  --btn-primary-color: white;
+  --btn-danger-bg: #da3633;
+  --btn-danger-color: white;
+  --table-header-bg: #2d2d2d;
+  --table-header-color: #e0e0e0;
+  --table-border: #404040;
+  --table-hover: #2d2d2d;
+  --modal-bg: #2d2d2d;
+  --modal-overlay: rgba(0, 0, 0, 0.8);
+  --shadow-color: rgba(0, 0, 0, 0.3);
+  --menu-bg: rgba(32, 32, 32, 0.95);
+  --menu-color: #e0e0e0;
+  --menu-hover: #404040;
+  --link-color: #58a6ff;
+  --link-hover: #79c0ff;
+}
+
 body {
   background-image: url('img/carrinho.png');
   background-size: cover;
@@ -12,13 +65,14 @@ body {
   background-repeat: no-repeat;
   background-attachment: fixed;
   font-family: 'Arial', sans-serif;
-  background-color: #f5f5f5;
-  color: #333;
+  background-color: var(--bg-color);
+  color: var(--text-color);
   display: flex;
   flex-direction: column;
   align-items: center;
   min-height: 100vh;
   padding: 20px;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 /* Estilos para o botão de menu */
@@ -84,14 +138,14 @@ body {
   text-align: center;
   width: 100%;
   padding: 20px;
-  background-color: rgba(255, 255, 255, 0.95);
+  background-color: var(--header-bg);
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 4px var(--shadow-color);
 }
 
 .header h1 {
   font-size: 2.5rem;
-  color: #000;
+  color: var(--text-color);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -101,9 +155,9 @@ body {
 .container {
   width: 100%;
   max-width: 800px;
-  background-color: rgba(255, 255, 255, 0.95);
+  background-color: var(--container-bg);
   border-radius: 12px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 6px var(--shadow-color);
   padding: 25px;
   margin-bottom: 30px;
 }
@@ -124,16 +178,18 @@ textarea {
   height: 100px;
   padding: 15px;
   border-radius: 8px;
-  border: 2px solid #ddd;
+  border: 2px solid var(--input-border);
+  background-color: var(--input-bg);
+  color: var(--text-color);
   margin-bottom: 0;
   resize: vertical;
   font-family: 'Arial', sans-serif;
   font-size: 1rem;
-  transition: border-color 0.3s ease;
+  transition: border-color 0.3s ease, background-color 0.3s ease, color 0.3s ease;
 }
 
 textarea:focus {
-  border-color: #007bff;
+  border-color: var(--link-color);
   outline: none;
 }
 
@@ -154,24 +210,26 @@ button {
 
 /* Botão principal (adicionar) */
 #btn-adicionar-colados {
-  background-color: #28a745;
-  color: white;
+  background-color: var(--btn-primary-bg);
+  color: var(--btn-primary-color);
 }
 
 #btn-adicionar-colados:hover {
-  background-color: #218838;
+  background-color: var(--btn-primary-bg);
+  filter: brightness(90%);
   transform: translateY(-1px);
 }
 
 /* Botão remover todos */
 #btn-remover-todos {
-  background-color: #dc3545;
-  color: white;
+  background-color: var(--btn-danger-bg);
+  color: var(--btn-danger-color);
   margin-top: 20px;
 }
 
 #btn-remover-todos:hover {
-  background-color: #c82333;
+  background-color: var(--btn-danger-bg);
+  filter: brightness(90%);
   transform: translateY(-1px);
 }
 
@@ -203,24 +261,25 @@ table {
   border-collapse: separate;
   border-spacing: 0;
   margin-bottom: 20px;
-  background-color: white;
+  background-color: var(--container-bg);
   border-radius: 8px;
   overflow: hidden;
 }
 
 th {
-  background-color: #f8f9fa;
-  color: #495057;
+  background-color: var(--table-header-bg);
+  color: var(--table-header-color);
   font-weight: 600;
   text-transform: uppercase;
   font-size: 0.85rem;
   padding: 15px;
-  border-bottom: 2px solid #dee2e6;
+  border-bottom: 2px solid var(--table-border);
 }
 
 td {
   padding: 12px 15px;
-  border-bottom: 1px solid #dee2e6;
+  border-bottom: 1px solid var(--table-border);
+  color: var(--text-color);
   vertical-align: middle;
 }
 
@@ -232,21 +291,23 @@ tr:last-child td {
 td input[type="number"] {
   width: 100%;
   padding: 8px;
-  border: 1px solid #ddd;
+  border: 1px solid var(--input-border);
   border-radius: 4px;
   font-size: 0.9rem;
+  background-color: var(--input-bg);
+  color: var(--text-color);
   transition: all 0.3s ease;
 }
 
 td input[type="number"]:focus {
-  border-color: #007bff;
+  border-color: var(--link-color);
   outline: none;
-  box-shadow: 0 0 0 2px rgba(0,123,255,0.25);
+  box-shadow: 0 0 0 2px rgba(var(--link-color), 0.25);
 }
 
 /* Totais */
 .totals {
-  background-color: #f8f9fa;
+  background-color: var(--table-header-bg);
   padding: 20px;
   border-radius: 8px;
   margin-top: 20px;
@@ -255,7 +316,8 @@ td input[type="number"]:focus {
   align-items: center;
   font-size: 1.1rem;
   font-weight: 600;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  box-shadow: 0 2px 4px var(--shadow-color);
+  color: var(--text-color);
 }
 
 /* Checkbox personalizado */
@@ -485,10 +547,10 @@ textarea::placeholder {
   bottom: 20px;
   left: 50%;
   transform: translateX(-50%);
-  background-color: rgba(255, 255, 255, 0.95);
+  background-color: var(--menu-bg);
   padding: 10px 20px;
   border-radius: 50px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 12px var(--shadow-color);
   display: flex;
   gap: 15px;
   z-index: 1000;
@@ -500,7 +562,7 @@ textarea::placeholder {
   border: none;
   padding: 10px;
   border-radius: 50%;
-  color: #495057;
+  color: var(--menu-color);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -519,12 +581,12 @@ textarea::placeholder {
 }
 
 .menu-item:hover {
-  background-color: #f8f9fa;
+  background-color: var(--menu-hover);
   transform: translateY(-2px);
 }
 
 .menu-item.active {
-  color: #007bff;
+  color: var(--link-color);
 }
 
 /* Modal */
@@ -535,7 +597,7 @@ textarea::placeholder {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: var(--modal-overlay);
   z-index: 1100;
   opacity: 0;
   transition: opacity 0.3s ease;
@@ -547,7 +609,8 @@ textarea::placeholder {
 }
 
 .modal-content {
-  background-color: white;
+  background-color: var(--modal-bg);
+  color: var(--text-color);
   border-radius: 12px;
   width: 90%;
   max-width: 500px;
@@ -564,7 +627,7 @@ textarea::placeholder {
 
 .modal-header {
   padding: 20px;
-  border-bottom: 1px solid #dee2e6;
+  border-bottom: 1px solid var(--table-border);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -588,7 +651,7 @@ textarea::placeholder {
   background: none;
   border: none;
   font-size: 1.5rem;
-  color: #6c757d;
+  color: var(--text-color);
   cursor: pointer;
   padding: 5px;
 }
@@ -607,9 +670,11 @@ textarea::placeholder {
 .config-item select {
   width: 100%;
   padding: 8px;
-  border: 1px solid #dee2e6;
+  border: 1px solid var(--input-border);
   border-radius: 4px;
   font-size: 1rem;
+  background-color: var(--input-bg);
+  color: var(--text-color);
 }
 
 /* Estilos para estatísticas */
@@ -842,4 +907,77 @@ textarea::placeholder {
 .app-info h3 {
   margin-bottom: 15px;
   color: #333;
+}
+
+/* Links */
+a {
+  color: var(--link-color);
+}
+
+a:hover {
+  color: var(--link-hover);
+}
+
+/* Estilos para gestos de toque */
+#produtos tbody tr {
+  touch-action: pan-y pinch-zoom;
+  position: relative;
+  transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+  background-color: var(--container-bg);
+}
+
+/* Feedback visual durante o toque */
+.row-touching {
+  background-color: var(--table-hover) !important;
+}
+
+/* Indicadores de direção do swipe */
+.swipe-left::after,
+.swipe-right::after {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: 'Font Awesome 5 Free';
+  font-weight: 900;
+  font-size: 1.2rem;
+  opacity: 0.7;
+}
+
+.swipe-left::after {
+  content: '\f2ed'; /* Ícone de lixeira */
+  right: 10px;
+  color: var(--btn-danger-color);
+}
+
+.swipe-right::after {
+  content: '\f058'; /* Ícone de check */
+  left: 10px;
+  color: var(--btn-primary-color);
+}
+
+/* Feedback visual para ações */
+.swipe-left {
+  background-color: var(--btn-danger-bg) !important;
+  color: var(--btn-danger-color) !important;
+}
+
+.swipe-right {
+  background-color: var(--btn-primary-bg) !important;
+  color: var(--btn-primary-color) !important;
+}
+
+/* Ajustes para dispositivos touch */
+@media (hover: none) {
+  #produtos tbody tr:active {
+    background-color: var(--table-hover);
+  }
+  
+  .btn-remover {
+    display: none; /* Esconde o botão de remover em dispositivos touch */
+  }
+  
+  td input[type="checkbox"] {
+    width: 24px; /* Checkbox maior para touch */
+    height: 24px;
+  }
 }

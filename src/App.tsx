@@ -7,13 +7,31 @@ import FloatingMenu from './components/FloatingMenu';
 import Modal from './components/Modal';
 import Notificacao from './components/Notificacao';
 
-function App() {
-  const [items, setItems] = useState(() => {
+interface Item {
+  id: string;
+  name: string;
+  quantity: number;
+  price: number;
+  checked: boolean;
+}
+
+interface NotificationType {
+  message: string;
+  type: 'success' | 'info' | 'warning' | 'error';
+}
+
+interface SortConfig {
+  key: keyof Item | null;
+  direction: 'asc' | 'desc';
+}
+
+function App(): JSX.Element {
+  const [items, setItems] = useState<Item[]>(() => {
     const savedItems = localStorage.getItem('lista-e-items');
     return savedItems ? JSON.parse(savedItems) : [];
   });
-  const [sortConfig, setSortConfig] = useState({ key: null, direction: 'asc' });
-  const [notification, setNotification] = useState(null);
+  const [sortConfig, setSortConfig] = useState<SortConfig>({ key: null, direction: 'asc' });
+  const [notification, setNotification] = useState<NotificationType | null>(null);
   const [isStatsModalOpen, setIsStatsModalOpen] = useState(false);
 
   useEffect(() => {

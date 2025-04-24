@@ -1,54 +1,100 @@
-# React + TypeScript + Vite
+# 🛒 ListaÊ - Lista de Compras Inteligente
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Um aplicativo web progressivo (PWA) para gerenciamento de listas de compras, desenvolvido com foco em simplicidade e eficiência.
 
-Currently, two official plugins are available:
+## 🌟 Destaques
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- 💨 Performance otimizada com JavaScript vanilla
+- 📱 Interface responsiva e adaptativa
+- 🔄 Sincronização em tempo real
+- 🌙 Temas claro/escuro/sistema
+- 📍 Funciona 100% offline
+- ⚡ Instalável como aplicativo
 
-## Expanding the ESLint configuration
+## 🔥 Funcionalidades
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### Core
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+- ✅ Adição rápida de itens (nome, quantidade, preço)
+- 📋 Entrada por texto colado em múltiplos formatos
+- 🧠 Detecção inteligente de duplicados
+- ✍️ Edição inline dinâmica
+- 🗑️ Remoção individual ou em massa
+- 📊 Cálculos automáticos em tempo real
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### Avançadas
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+- 💾 Múltiplas listas com salvamento automático
+- 🚀 Compartilhamento via clipboard/Web Share API
+- 📈 Dashboard de estatísticas detalhado
+- ⚙️ Configurações personalizáveis
+- 🌐 Suporte a múltiplas moedas
+- 🎯 Gestos touch otimizados
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+## 🛠️ Stack Tecnológica
+
+### Frontend
+
+- HTML5 semântico
+- CSS3 (Flexbox + Grid)
+- JavaScript ES6+
+- PWA (Service Workers)
+- LocalStorage
+- Cache API
+
+### UI/UX
+
+- Design System próprio
+- FontAwesome icons
+- Temas adaptáveis
+- Gestos touch nativos
+- Feedback visual intuitivo
+
+## 📱 Instalação
+
+### Android
+
+1. Abra o Chrome
+2. Menu (⋮) > "Instalar aplicativo"
+3. Siga as instruções
+
+### iOS
+
+1. Abra no Safari
+2. Share (📤) > "Adicionar à Tela de Início"
+3. Confirme a instalação
+
+### Desktop
+
+1. Abra no Chrome/Edge
+2. Clique no ícone de instalação (🏠)
+3. "Instalar"
+
+## 🔒 Segurança e Privacidade
+
+- 🛡️ Dados armazenados localmente
+- 🔐 Sem coleta de informações pessoais
+- 📱 Permissões mínimas necessárias
+- 🌐 HTTPS por padrão
+
+## 🎯 Próximas Features
+
+- [ ] Sincronização em nuvem
+- [ ] Histórico de preços
+- [ ] Categorização automática
+- [ ] Sugestões inteligentes
+- [ ] Integração com APIs de preços
+- [ ] Múltiplos idiomas
+
+## 👨‍💻 Desenvolvido por
+
+Willian Sousa  
+[![GitHub](https://img.shields.io/badge/GitHub-Wiooll-000?logo=github)](https://github.com/Wiooll)
+
+## 📄 Licença
+
+Este projeto está licenciado sob a Licença MIT.
+
+---
+
+🌟 **Versão atual: 1.0.0**
